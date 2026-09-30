@@ -34,6 +34,7 @@ dev = [
     "types-jsonschema>=4.26.0.20260518",
     "playwright>=1.63.0",
     "axe-playwright-python>=0.1.8",
+    "pytest-github-actions-annotate-failures>=0.4.2",
 ]
 
 [build-system]
