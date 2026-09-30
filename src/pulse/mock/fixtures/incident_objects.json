@@ -1,0 +1,20 @@
+{
+  "hyperV": {
+    "schema": "HyperVObjectModel",
+    "body": {
+      "platform": "HyperV",
+      "hostName": "hv01.lab.local",
+      "name": "FS-02",
+      "type": "VirtualMachine",
+      "objectId": "5b0c9a61-3f7e-4c2a-8d11-0f6a2e9b7c42",
+      "urn": "HyperV:hv01.lab.local:5b0c9a61-3f7e-4c2a-8d11-0f6a2e9b7c42"
+    }
+  },
+  "backupObjectPair": {
+    "schema": "BackupObjectPair",
+    "body": {
+      "backupId": "45af5331-ca41-586d-bf13-989ad270a63d",
+      "backupObjectId": "0403e69a-03aa-56b6-85f9-5ebc7592b41e"
+    }
+  }
+}

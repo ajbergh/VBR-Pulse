@@ -1,0 +1,1571 @@
+{
+  "operationId": "GetAllSessions",
+  "body": {
+    "data": [
+      {
+        "id": "b13d076a-8ed8-5aae-88d0-04c08bed46c5",
+        "name": "SQL Logs hourly",
+        "jobId": "bdd087b2-0672-563e-a211-c9797b9a6e61",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T10:59:48Z",
+        "endTime": "2026-09-30T11:10:33Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90003,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "17fff868-2962-58f6-8c8f-9dff25fb5565",
+        "name": "Offsite copy",
+        "jobId": "a5211735-9bdb-5da1-ac4f-490c5945dd24",
+        "sessionType": "BackupCopyJob",
+        "creationTime": "2026-09-30T10:40:00Z",
+        "endTime": "2026-09-30T10:47:36Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90027,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "f48f881e-3f78-5211-8114-58360b7f565b",
+        "name": "Kubernetes etcd VMs",
+        "jobId": "ad37c2bd-ecfa-57e7-9cda-bc02221f8e95",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T10:10:00Z",
+        "endTime": "2026-09-30T10:15:57Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90043,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "ea9f24d7-08eb-59ef-9774-8154989e543a",
+        "name": "Web tier",
+        "jobId": "532ca266-19f0-588b-99dc-b1664c229e9c",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T09:40:00Z",
+        "endTime": "2026-09-30T09:52:24Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90015,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "664bd860-6d00-52de-905a-f35a0ad0cd36",
+        "name": "App tier",
+        "jobId": "f74513a6-fbfc-56c5-b753-0008c767a3e9",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T09:40:00Z",
+        "endTime": "2026-09-30T09:52:24Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90017,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "0e0d2207-0280-5b20-8dff-2cee3e014b33",
+        "name": "Finance close",
+        "jobId": "e2aefd1e-496a-592a-87d3-50953aea39b0",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T08:40:00Z",
+        "endTime": "2026-09-30T08:48:39Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Failed",
+          "message": "Error: Failed to create a VM snapshot.",
+          "isCanceled": false
+        },
+        "usn": 90039,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "889875d8-9f19-591b-8186-76cc1de7995b",
+        "name": "CI runners",
+        "jobId": "85a86657-2433-56d3-9b69-6acfdd9368be",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T08:40:00Z",
+        "endTime": "2026-09-30T08:45:30Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90061,
+        "platformName": "LinuxPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "490e5409-c5d1-5127-89fe-d9697f98e1f0",
+        "name": "SQL Daily",
+        "jobId": "a65af3bc-6e80-54e4-b6b2-0276a54d9398",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T07:59:48Z",
+        "endTime": "2026-09-30T08:04:15Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90001,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "058f6d84-39e2-548d-9591-6a22e772b267",
+        "name": "CRM database",
+        "jobId": "7b7401d1-db33-5a75-91ce-eed4acbf5428",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T07:40:00Z",
+        "endTime": "2026-09-30T07:47:36Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90035,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "6fc588a6-08eb-5b3b-af77-a241815098fc",
+        "name": "Retail POS gateways",
+        "jobId": "1c5c5163-0d07-5ac6-8fe0-3472312d1c76",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T07:40:00Z",
+        "endTime": "2026-09-30T07:45:57Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Warning",
+          "message": "1 of the machines was processed with warnings.",
+          "isCanceled": false
+        },
+        "usn": 90081,
+        "platformName": "WindowsPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "37081b72-ef14-5037-86ce-df2ea98b9d4c",
+        "name": "File servers",
+        "jobId": "905dca27-07f6-5479-9af4-f875f7094822",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T07:10:00Z",
+        "endTime": "2026-09-30T07:17:36Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90007,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "24b873c5-f214-574a-be45-a57648ce6d64",
+        "name": "SQL Reporting",
+        "jobId": "a66a0a63-8725-554c-8bca-a6e5e2826076",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T06:40:00Z",
+        "endTime": "2026-09-30T06:48:39Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90005,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "d53b334e-347c-564f-a1e0-7c312d59a39e",
+        "name": "Call center",
+        "jobId": "3e007824-f48b-585c-b5fa-0bdeaffe064e",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T06:40:00Z",
+        "endTime": "2026-09-30T06:46:33Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90077,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "b4ebc848-8711-5320-b632-a4264430ce50",
+        "name": "Ticketing system",
+        "jobId": "8289eb65-8296-5e46-be09-f357e9228d30",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T06:10:00Z",
+        "endTime": "2026-09-30T06:21:48Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90047,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "18856278-2ef6-5fd9-852b-d6eb172edeb7",
+        "name": "DR replica",
+        "jobId": "c16e3fc6-2cd2-5784-aef6-afa8e9b81f31",
+        "sessionType": "ReplicaJob",
+        "creationTime": "2026-09-30T05:59:48Z",
+        "endTime": "2026-09-30T06:05:18Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Warning",
+          "message": "1 of the machines was processed with warnings.",
+          "isCanceled": false
+        },
+        "usn": 90009,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "c196198a-3e49-5a86-9548-eb9610dda3c7",
+        "name": "Exchange mailbox servers",
+        "jobId": "864237f2-1d04-5410-abc8-d5c1f52e29e8",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T05:40:00Z",
+        "endTime": "2026-09-30T05:50:12Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90011,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "ba75fb95-c8f0-502a-a3de-a0f88b2cba94",
+        "name": "SharePoint farm",
+        "jobId": "ef0d17b8-be32-50bf-bf00-ef30da8d6eca",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T05:40:00Z",
+        "endTime": "2026-09-30T05:50:45Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90033,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "0d294528-3df2-5227-9e8c-33dbf4fff458",
+        "name": "Intranet",
+        "jobId": "102e89f0-0526-5690-aaaf-5bdead7467b9",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T05:40:00Z",
+        "endTime": "2026-09-30T05:52:24Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90049,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "3463e03f-07cf-58d4-b9de-da27ed0fb844",
+        "name": "Mail relays",
+        "jobId": "9447d600-9ae7-5d8c-a02c-ca4bcaf48e0f",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T05:40:00Z",
+        "endTime": "2026-09-30T05:46:33Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90065,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "47e7aa34-dec8-5009-a7f0-ecdb93eabe64",
+        "name": "Windows file cluster",
+        "jobId": "9ca6835d-717e-58d4-81d5-54de779f70d5",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T05:10:00Z",
+        "endTime": "2026-09-30T05:16:00Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90023,
+        "platformName": "WindowsPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "2737d11b-8673-5187-9adc-a2da5040fe33",
+        "name": "Domain controllers",
+        "jobId": "1b65a8ed-82bb-5b0a-9659-96bf53f94db0",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T04:40:00Z",
+        "endTime": "2026-09-30T04:44:54Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90013,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "6e109969-59d9-5acf-988c-04ce0b299b2f",
+        "name": "DNS and DHCP",
+        "jobId": "fe88c331-3641-5c41-9d73-2d79e1a4f626",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T04:40:00Z",
+        "endTime": "2026-09-30T04:47:36Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90067,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "74d9d308-f023-570f-8c7f-9f88487b0ef0",
+        "name": "Identity services",
+        "jobId": "0c3e67c4-49dc-589d-a363-89a0cea9588d",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T04:40:00Z",
+        "endTime": "2026-09-30T04:52:51Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90069,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "359c5240-c398-5e77-8d8f-1bc845f94350",
+        "name": "HR systems",
+        "jobId": "0e081a33-1823-5402-9710-65aba020c2f8",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T04:10:00Z",
+        "endTime": "2026-09-30T04:15:30Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90037,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "cd26f392-d127-5114-b7ea-fbdb084493ad",
+        "name": "Oracle ERP",
+        "jobId": "084557a8-227b-5497-b787-d74ceca71dac",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T03:40:00Z",
+        "endTime": "2026-09-30T03:45:30Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90019,
+        "platformName": "LinuxPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "2505e042-7e06-5d9b-9cf4-337f5c9b7e3a",
+        "name": "Jump hosts",
+        "jobId": "bf7c0457-278e-5e98-9f37-2a016708e7eb",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T03:40:00Z",
+        "endTime": "2026-09-30T03:45:30Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90041,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "b05dfb5b-0ee0-5143-a480-3bdfb2061d6a",
+        "name": "Linux build agents",
+        "jobId": "7fb74e7a-cf8e-59d0-8322-32f9e94c12e7",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T02:40:00Z",
+        "endTime": "2026-09-30T02:44:54Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Warning",
+          "message": "1 of the machines was processed with warnings.",
+          "isCanceled": false
+        },
+        "usn": 90021,
+        "platformName": "LinuxPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "d0857275-9317-5075-bc4a-242ffb1cc17f",
+        "name": "Monitoring stack",
+        "jobId": "d7a93586-9853-57c0-b1a7-e8d9b269e9f8",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T02:40:00Z",
+        "endTime": "2026-09-30T02:51:48Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90045,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "cbe37442-6eca-5de2-8c0e-19ae66000d07",
+        "name": "Branch office laptops",
+        "jobId": "49f98581-bd0f-5ef6-98ba-90c6fe8cba24",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T01:40:00Z",
+        "endTime": "2026-09-30T01:47:03Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90025,
+        "platformName": "WindowsPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "49003fc0-6c3b-5def-95f6-405a4ca65b3b",
+        "name": "Dev databases",
+        "jobId": "4f91251f-e147-558d-b4e2-e03326f053fe",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T01:40:00Z",
+        "endTime": "2026-09-30T01:48:39Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Warning",
+          "message": "1 of the machines was processed with warnings.",
+          "isCanceled": false
+        },
+        "usn": 90055,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "be4253d4-6f8a-55fc-ad9e-d55f3d99031a",
+        "name": "QA environment",
+        "jobId": "d5bbd59a-88d8-52b9-baba-76087e7dda37",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T01:40:00Z",
+        "endTime": "2026-09-30T01:49:42Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90057,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "7700d8bc-0ea5-564c-a6fb-b06d4d62adf1",
+        "name": "Staging web",
+        "jobId": "0523129b-7737-5888-84e3-248792caa476",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T01:40:00Z",
+        "endTime": "2026-09-30T01:46:33Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90059,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "3050abc2-c3f1-5c40-8b5a-f22d08f9a207",
+        "name": "Hyper-V lab hosts",
+        "jobId": "eb8e80e7-ab39-53a7-9cb6-4364334f0bae",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-30T00:40:00Z",
+        "endTime": "2026-09-30T00:52:51Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90029,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "cfe05803-9239-5270-89e5-62a0c39d08f2",
+        "name": "Payroll",
+        "jobId": "f0b37661-62c0-518a-86ea-4a055d77f26f",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T23:40:00Z",
+        "endTime": "2026-09-29T23:51:21Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90051,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "229376ab-2715-520d-b5a4-fe3f944c7139",
+        "name": "Data warehouse",
+        "jobId": "10d8ca75-ac2c-576c-be3a-bd71a0111735",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T22:40:00Z",
+        "endTime": "2026-09-29T22:49:42Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90071,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "9cef6524-7ef5-5d17-a42e-cb8c630f789a",
+        "name": "ETL workers",
+        "jobId": "452d3660-0890-5e0e-afac-575d951fca55",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T22:40:00Z",
+        "endTime": "2026-09-29T22:46:33Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90073,
+        "platformName": "LinuxPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "8119e1c2-0980-597f-91bf-ef7c6fd0d4d7",
+        "name": "Analytics notebooks",
+        "jobId": "a8e4f333-eadd-5860-8e15-211b0436b4e7",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T21:40:00Z",
+        "endTime": "2026-09-29T21:45:57Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90075,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "3715fd13-9538-5799-93a8-a472f74d4f49",
+        "name": "Warehouse scanners",
+        "jobId": "7d032276-e4de-5161-9484-6c1ed26c337a",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T20:40:00Z",
+        "endTime": "2026-09-29T20:44:54Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90079,
+        "platformName": "WindowsPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "b91c98ff-708b-502a-a023-3c063cdd533c",
+        "name": "Legal archive",
+        "jobId": "3ac9cec8-6503-5c71-8882-718ed206b8bc",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T15:40:00Z",
+        "endTime": "2026-09-29T15:48:39Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90053,
+        "platformName": "WindowsPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "e480536d-6bc7-5809-a740-ac01df11bc7a",
+        "name": "Backup proxies",
+        "jobId": "4c149b2f-0682-5f50-ba67-d163b4afaa02",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T13:40:00Z",
+        "endTime": "2026-09-29T13:49:42Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90063,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "db132d93-8c18-543a-b60c-8369cf22c06f",
+        "name": "SQL Logs hourly",
+        "jobId": "bdd087b2-0672-563e-a211-c9797b9a6e61",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T10:59:48Z",
+        "endTime": "2026-09-29T11:10:33Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90004,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "eac3a0b1-248c-51da-b1dc-6bc9f7645488",
+        "name": "Offsite copy",
+        "jobId": "a5211735-9bdb-5da1-ac4f-490c5945dd24",
+        "sessionType": "BackupCopyJob",
+        "creationTime": "2026-09-29T10:40:00Z",
+        "endTime": "2026-09-29T10:47:36Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90028,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "d84acb6e-1cda-574d-ad26-c3ed7663c642",
+        "name": "Kubernetes etcd VMs",
+        "jobId": "ad37c2bd-ecfa-57e7-9cda-bc02221f8e95",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T10:10:00Z",
+        "endTime": "2026-09-29T10:15:57Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90044,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "65fcaefe-33f2-567a-af19-56219f76dd57",
+        "name": "Web tier",
+        "jobId": "532ca266-19f0-588b-99dc-b1664c229e9c",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T09:40:00Z",
+        "endTime": "2026-09-29T09:52:24Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90016,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "5282dcc0-0a09-5ceb-836f-ddab5f60a17e",
+        "name": "App tier",
+        "jobId": "f74513a6-fbfc-56c5-b753-0008c767a3e9",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T09:40:00Z",
+        "endTime": "2026-09-29T09:52:24Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90018,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "e74dc50e-be2d-5459-a83c-b5825c7632f1",
+        "name": "Finance close",
+        "jobId": "e2aefd1e-496a-592a-87d3-50953aea39b0",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T08:40:00Z",
+        "endTime": "2026-09-29T08:48:39Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90040,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "f47cdd72-e36a-5f32-920a-d05519cb526e",
+        "name": "CI runners",
+        "jobId": "85a86657-2433-56d3-9b69-6acfdd9368be",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T08:40:00Z",
+        "endTime": "2026-09-29T08:45:30Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90062,
+        "platformName": "LinuxPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "d36fa7c4-b021-5add-b7a6-e19b4c6f8387",
+        "name": "SQL Daily",
+        "jobId": "a65af3bc-6e80-54e4-b6b2-0276a54d9398",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T07:59:48Z",
+        "endTime": "2026-09-29T08:04:15Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90002,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "393aeed0-f122-5c08-9ed0-61f1cfe2db84",
+        "name": "CRM database",
+        "jobId": "7b7401d1-db33-5a75-91ce-eed4acbf5428",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T07:40:00Z",
+        "endTime": "2026-09-29T07:47:36Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90036,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "74cf6965-1e2c-5e81-b0b4-3817e6047459",
+        "name": "Retail POS gateways",
+        "jobId": "1c5c5163-0d07-5ac6-8fe0-3472312d1c76",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T07:40:00Z",
+        "endTime": "2026-09-29T07:45:57Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90082,
+        "platformName": "WindowsPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "acce686e-8d66-5282-ad1d-dbc23eb4800d",
+        "name": "File servers",
+        "jobId": "905dca27-07f6-5479-9af4-f875f7094822",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T07:10:00Z",
+        "endTime": "2026-09-29T07:17:36Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90008,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "ed7a76c8-d7c2-5bfc-be15-5f00728a1f98",
+        "name": "SQL Reporting",
+        "jobId": "a66a0a63-8725-554c-8bca-a6e5e2826076",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T06:40:00Z",
+        "endTime": "2026-09-29T06:48:39Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90006,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "7fa2c58d-8702-57b3-a58c-1875d981c760",
+        "name": "Call center",
+        "jobId": "3e007824-f48b-585c-b5fa-0bdeaffe064e",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T06:40:00Z",
+        "endTime": "2026-09-29T06:46:33Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90078,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "1d8ecd7f-cb94-5d23-a26e-8194f6d03142",
+        "name": "Ticketing system",
+        "jobId": "8289eb65-8296-5e46-be09-f357e9228d30",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T06:10:00Z",
+        "endTime": "2026-09-29T06:21:48Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90048,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "7e336f53-cf6f-5935-bb13-bd466742005e",
+        "name": "DR replica",
+        "jobId": "c16e3fc6-2cd2-5784-aef6-afa8e9b81f31",
+        "sessionType": "ReplicaJob",
+        "creationTime": "2026-09-29T05:59:48Z",
+        "endTime": "2026-09-29T06:05:18Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90010,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "d96e2008-b16f-5ae6-b99f-ce40e7279c8a",
+        "name": "Exchange mailbox servers",
+        "jobId": "864237f2-1d04-5410-abc8-d5c1f52e29e8",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T05:40:00Z",
+        "endTime": "2026-09-29T05:50:12Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90012,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "30942c79-c25f-5213-a975-f4672e154bc8",
+        "name": "VDI golden images",
+        "jobId": "b424339a-0fa1-54ff-8729-2de803ae9238",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T05:40:00Z",
+        "endTime": "2026-09-29T05:52:51Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90031,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "3554f6ca-77ef-516c-8006-66df15ab6d40",
+        "name": "SharePoint farm",
+        "jobId": "ef0d17b8-be32-50bf-bf00-ef30da8d6eca",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T05:40:00Z",
+        "endTime": "2026-09-29T05:50:45Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90034,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "9fdf3ae5-7f13-556e-b8bf-d4138c70e250",
+        "name": "Intranet",
+        "jobId": "102e89f0-0526-5690-aaaf-5bdead7467b9",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T05:40:00Z",
+        "endTime": "2026-09-29T05:52:24Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90050,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "adba7af1-082d-54ff-ba28-727673fc6c6f",
+        "name": "Mail relays",
+        "jobId": "9447d600-9ae7-5d8c-a02c-ca4bcaf48e0f",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T05:40:00Z",
+        "endTime": "2026-09-29T05:46:33Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90066,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "84483ab6-b8a5-557a-979a-b277a53184ac",
+        "name": "Windows file cluster",
+        "jobId": "9ca6835d-717e-58d4-81d5-54de779f70d5",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T05:10:00Z",
+        "endTime": "2026-09-29T05:16:00Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90024,
+        "platformName": "WindowsPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "635d1117-8dbf-5865-bd1d-55c29ef6567e",
+        "name": "Domain controllers",
+        "jobId": "1b65a8ed-82bb-5b0a-9659-96bf53f94db0",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T04:40:00Z",
+        "endTime": "2026-09-29T04:44:54Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90014,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "600bbb70-47a3-5115-a188-bc7930463d59",
+        "name": "DNS and DHCP",
+        "jobId": "fe88c331-3641-5c41-9d73-2d79e1a4f626",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T04:40:00Z",
+        "endTime": "2026-09-29T04:47:36Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90068,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "2f6d2820-4693-5744-b3d0-c56e3742f81e",
+        "name": "Identity services",
+        "jobId": "0c3e67c4-49dc-589d-a363-89a0cea9588d",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T04:40:00Z",
+        "endTime": "2026-09-29T04:52:51Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90070,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "d61f5368-692e-5e82-8e83-c88bef182e4e",
+        "name": "HR systems",
+        "jobId": "0e081a33-1823-5402-9710-65aba020c2f8",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T04:10:00Z",
+        "endTime": "2026-09-29T04:15:30Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90038,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "11ce058b-6c18-5c3d-8aec-9e5a74a05309",
+        "name": "Oracle ERP",
+        "jobId": "084557a8-227b-5497-b787-d74ceca71dac",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T03:40:00Z",
+        "endTime": "2026-09-29T03:45:30Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90020,
+        "platformName": "LinuxPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "9fbd7f20-48dc-5b47-a6fd-8a95ad08cd53",
+        "name": "Jump hosts",
+        "jobId": "bf7c0457-278e-5e98-9f37-2a016708e7eb",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T03:40:00Z",
+        "endTime": "2026-09-29T03:45:30Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90042,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "3e251087-0f2f-5a39-9394-775c40347a47",
+        "name": "Linux build agents",
+        "jobId": "7fb74e7a-cf8e-59d0-8322-32f9e94c12e7",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T02:40:00Z",
+        "endTime": "2026-09-29T02:44:54Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90022,
+        "platformName": "LinuxPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "b341054f-3905-50ac-8111-da354cc44116",
+        "name": "Monitoring stack",
+        "jobId": "d7a93586-9853-57c0-b1a7-e8d9b269e9f8",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T02:40:00Z",
+        "endTime": "2026-09-29T02:51:48Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90046,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "f783d57e-6c00-5921-9544-c6fb5a97e2e0",
+        "name": "Branch office laptops",
+        "jobId": "49f98581-bd0f-5ef6-98ba-90c6fe8cba24",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T01:40:00Z",
+        "endTime": "2026-09-29T01:47:03Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90026,
+        "platformName": "WindowsPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "093e47a8-d6dc-544e-af33-765e4aeab067",
+        "name": "Dev databases",
+        "jobId": "4f91251f-e147-558d-b4e2-e03326f053fe",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T01:40:00Z",
+        "endTime": "2026-09-29T01:48:39Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90056,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "2ca040cc-6747-514f-a466-08be4b994175",
+        "name": "QA environment",
+        "jobId": "d5bbd59a-88d8-52b9-baba-76087e7dda37",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T01:40:00Z",
+        "endTime": "2026-09-29T01:49:42Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90058,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "8ab23b94-a10e-5c2e-a249-16da6518e505",
+        "name": "Staging web",
+        "jobId": "0523129b-7737-5888-84e3-248792caa476",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T01:40:00Z",
+        "endTime": "2026-09-29T01:46:33Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90060,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "ec17103a-135b-5d8f-a12b-a6723cfb25c7",
+        "name": "Hyper-V lab hosts",
+        "jobId": "eb8e80e7-ab39-53a7-9cb6-4364334f0bae",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-29T00:40:00Z",
+        "endTime": "2026-09-29T00:52:51Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90030,
+        "platformName": "HyperV",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "cc7661c3-7a76-5bed-a823-b12632c722f8",
+        "name": "Payroll",
+        "jobId": "f0b37661-62c0-518a-86ea-4a055d77f26f",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-28T23:40:00Z",
+        "endTime": "2026-09-28T23:51:21Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90052,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "c487f52a-edc2-5721-a7da-a2845861c0a2",
+        "name": "Data warehouse",
+        "jobId": "10d8ca75-ac2c-576c-be3a-bd71a0111735",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-28T22:40:00Z",
+        "endTime": "2026-09-28T22:49:42Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90072,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "3eec135f-6788-5386-bfeb-4fd55eabd694",
+        "name": "ETL workers",
+        "jobId": "452d3660-0890-5e0e-afac-575d951fca55",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-28T22:40:00Z",
+        "endTime": "2026-09-28T22:46:33Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90074,
+        "platformName": "LinuxPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "1c795ede-68dc-5fba-9b4c-585b371d5b21",
+        "name": "Analytics notebooks",
+        "jobId": "a8e4f333-eadd-5860-8e15-211b0436b4e7",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-28T21:40:00Z",
+        "endTime": "2026-09-28T21:45:57Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90076,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "ea441496-9821-5a70-8e0e-fe5e638bae6f",
+        "name": "Warehouse scanners",
+        "jobId": "7d032276-e4de-5161-9484-6c1ed26c337a",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-28T20:40:00Z",
+        "endTime": "2026-09-28T20:44:54Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90080,
+        "platformName": "WindowsPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "ddff85e3-d289-5c26-91be-308f2695958f",
+        "name": "Legal archive",
+        "jobId": "3ac9cec8-6503-5c71-8882-718ed206b8bc",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-28T15:40:00Z",
+        "endTime": "2026-09-28T15:48:39Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90054,
+        "platformName": "WindowsPhysical",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "c425734b-5612-5aeb-b90d-e9e4d06527ce",
+        "name": "Backup proxies",
+        "jobId": "4c149b2f-0682-5f50-ba67-d163b4afaa02",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-28T13:40:00Z",
+        "endTime": "2026-09-28T13:49:42Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90064,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      },
+      {
+        "id": "1a3b97ca-64e5-5ad5-b0c7-06edfb2929d0",
+        "name": "VDI golden images",
+        "jobId": "b424339a-0fa1-54ff-8729-2de803ae9238",
+        "sessionType": "BackupJob",
+        "creationTime": "2026-09-28T05:40:00Z",
+        "endTime": "2026-09-28T05:52:51Z",
+        "state": "Stopped",
+        "progressPercent": 100,
+        "result": {
+          "result": "Success",
+          "message": "",
+          "isCanceled": false
+        },
+        "usn": 90032,
+        "platformName": "VMware",
+        "platformId": "00000000-0000-0000-0000-000000000000",
+        "initiatedBy": "Scheduler"
+      }
+    ],
+    "pagination": {
+      "total": 82,
+      "count": 82,
+      "skip": 0,
+      "limit": 82
+    }
+  }
+}

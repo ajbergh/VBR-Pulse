@@ -1,0 +1,93 @@
+{
+  "operationId": "GetAllRepositoriesStates",
+  "body": {
+    "data": [
+      {
+        "id": "e0c6d077-6f9b-50f9-946d-d5ae141d3cce",
+        "name": "Primary ReFS",
+        "type": "WinLocal",
+        "description": "",
+        "path": "E:\\Backups",
+        "capacityGB": 40960.0,
+        "freeGB": 11264.5,
+        "usedSpaceGB": 29695.5,
+        "isOnline": true,
+        "isOutOfDate": false,
+        "hostId": "849d14d9-5d81-5c0b-9dfb-c82c68bda3f4",
+        "hostName": "repo01.lab.local"
+      },
+      {
+        "id": "f541ffa2-d58f-5a49-a7ad-65e090b5cd46",
+        "name": "Hardened Linux",
+        "type": "LinuxLocal",
+        "description": "",
+        "path": "/mnt/xfs/backups",
+        "capacityGB": 81920.0,
+        "freeGB": 52011.25,
+        "usedSpaceGB": 29908.75,
+        "isOnline": true,
+        "isOutOfDate": false,
+        "hostId": "3a61d1be-f54d-578d-8728-8b7e1dc21735",
+        "hostName": "hardened01.lab.local"
+      },
+      {
+        "id": "d0fd5c98-941e-59d9-8519-4997002772ec",
+        "name": "Immutable object storage",
+        "type": "S3Compatible",
+        "description": "",
+        "path": "pulse-lab-immutable",
+        "capacityGB": 102400.0,
+        "freeGB": 71680.0,
+        "usedSpaceGB": 30720.0,
+        "isOnline": true,
+        "isOutOfDate": false
+      },
+      {
+        "id": "f3b6fa4e-48d6-58fc-b11a-3a204e78854f",
+        "name": "Offsite S3",
+        "type": "AmazonS3",
+        "description": "",
+        "path": "pulse-offsite",
+        "capacityGB": 204800.0,
+        "freeGB": 169984.0,
+        "usedSpaceGB": 34816.0,
+        "isOnline": true,
+        "isOutOfDate": false
+      },
+      {
+        "id": "408463d0-9130-56bc-8fdd-9ceb3458c135",
+        "name": "NAS share",
+        "type": "Smb",
+        "description": "",
+        "path": "\\\\nas01\\veeam",
+        "capacityGB": 16384.0,
+        "freeGB": 1228.8,
+        "usedSpaceGB": 15155.2,
+        "isOnline": true,
+        "isOutOfDate": false,
+        "hostId": "d4f0d010-c838-5fdc-be16-0b4977c1b7b6",
+        "hostName": "nas01.lab.local"
+      },
+      {
+        "id": "b95f1f7e-47ee-57b8-8e2b-811de23a4a69",
+        "name": "Old NFS repository",
+        "type": "Nfs",
+        "description": "",
+        "path": "/exports/veeam",
+        "capacityGB": 8192.0,
+        "freeGB": 4096.0,
+        "usedSpaceGB": 4096.0,
+        "isOnline": false,
+        "isOutOfDate": false,
+        "hostId": "b7765d65-b54c-54f6-9ae6-13e9aeed74f4",
+        "hostName": "nfs02.lab.local"
+      }
+    ],
+    "pagination": {
+      "total": 6,
+      "count": 6,
+      "skip": 0,
+      "limit": 6
+    }
+  }
+}

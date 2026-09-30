@@ -141,6 +141,48 @@ def validate_request_body(operation_id: str, method: str, path: str, body: Any) 
         )
 
 
-def _describe(error: ValidationError) -> str:
+def _describe(error: ValidationError, what: str = "Request body") -> str:
     where = "/".join(str(p) for p in error.absolute_path) or "body"
-    return f"Request body doesn't match the 1.3-rev2 spec at '{where}': {error.message}"
+    return f"{what} doesn't match the 1.3-rev2 spec at '{where}': {error.message}"
+
+
+class SpecMismatch(AssertionError):
+    """A response or fixture doesn't match the spec (used by contract tests and the mock)."""
+
+
+@cache
+def _response_validator(method: str, path: str, status: int) -> Draft7Validator | None:
+    responses = _operation(method, path).get("responses", {})
+    response = responses.get(str(status)) or responses.get("default")
+    if not response:
+        raise SpecMismatch(f"{method} {path} has no {status} response in the spec")
+    if "$ref" in response:
+        response = load_spec()["components"]["responses"][response["$ref"].rsplit("/", 1)[-1]]
+    content = response.get("content", {}).get("application/json")
+    if not content or "schema" not in content:
+        return None
+    return Draft7Validator(_schema_pointer(content["schema"]), registry=_registry())
+
+
+def validate_response_body(method: str, path: str, status: int, body: Any) -> None:
+    """Raise SpecMismatch if `body` isn't a valid `status` response for the operation."""
+    validator = _response_validator(method, path, status)
+    if validator is None:
+        return
+    error = best_match(validator.iter_errors(body))
+    if error is not None:
+        raise SpecMismatch(_describe(error, f"{method} {path} {status} response"))
+
+
+@cache
+def _named_validator(schema_name: str) -> Draft7Validator:
+    if schema_name not in load_spec()["components"]["schemas"]:
+        raise SpecMismatch(f"No schema named {schema_name} in the spec")
+    return Draft7Validator({"$ref": f"{_SPEC_URI}{_SCHEMAS}{schema_name}"}, registry=_registry())
+
+
+def validate_schema(schema_name: str, value: Any) -> None:
+    """Raise SpecMismatch if `value` doesn't match components/schemas/<schema_name>."""
+    error = best_match(_named_validator(schema_name).iter_errors(value))
+    if error is not None:
+        raise SpecMismatch(_describe(error, schema_name))

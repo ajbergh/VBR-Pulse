@@ -1,0 +1,137 @@
+{
+  "_comment": "Scripted session timelines (PLAN §6.2, Appendix B format). progressPercent is interpolated between consecutive Working steps. Log lines appear once afterSeconds has elapsed.",
+  "timelines": {
+    "success40": [
+      { "afterSeconds": 0,  "body": { "state": "Starting", "progressPercent": 0 } },
+      { "afterSeconds": 4,  "body": { "state": "Working",  "progressPercent": 2 } },
+      { "afterSeconds": 38, "body": { "state": "Working",  "progressPercent": 99 } },
+      { "afterSeconds": 40, "body": { "state": "Stopped",  "progressPercent": 100,
+                                      "result": { "result": "Success", "message": "", "isCanceled": false } } }
+    ],
+    "warning40": [
+      { "afterSeconds": 0,  "body": { "state": "Starting", "progressPercent": 0 } },
+      { "afterSeconds": 4,  "body": { "state": "Working",  "progressPercent": 2 } },
+      { "afterSeconds": 38, "body": { "state": "Working",  "progressPercent": 99 } },
+      { "afterSeconds": 40, "body": { "state": "Stopped",  "progressPercent": 100,
+                                      "result": { "result": "Warning", "message": "1 of 4 machines was skipped: SQL-04 is powered off.", "isCanceled": false } } }
+    ],
+    "failed63": [
+      { "afterSeconds": 0,  "body": { "state": "Starting", "progressPercent": 0 } },
+      { "afterSeconds": 4,  "body": { "state": "Working",  "progressPercent": 2 } },
+      { "afterSeconds": 25, "body": { "state": "Working",  "progressPercent": 63 } },
+      { "afterSeconds": 27, "body": { "state": "Stopped",  "progressPercent": 63,
+                                      "result": { "result": "Failed", "message": "Error: Failed to create a VM snapshot on SQL-03.", "isCanceled": false } } }
+    ],
+    "success90": [
+      { "afterSeconds": 0,  "body": { "state": "Starting", "progressPercent": 0 } },
+      { "afterSeconds": 4,  "body": { "state": "Working",  "progressPercent": 1 } },
+      { "afterSeconds": 88, "body": { "state": "Working",  "progressPercent": 99 } },
+      { "afterSeconds": 90, "body": { "state": "Stopped",  "progressPercent": 100,
+                                      "result": { "result": "Success", "message": "", "isCanceled": false } } }
+    ],
+    "success20": [
+      { "afterSeconds": 0,  "body": { "state": "Starting", "progressPercent": 0 } },
+      { "afterSeconds": 3,  "body": { "state": "Working",  "progressPercent": 4 } },
+      { "afterSeconds": 18, "body": { "state": "Working",  "progressPercent": 99 } },
+      { "afterSeconds": 20, "body": { "state": "Stopped",  "progressPercent": 100,
+                                      "result": { "result": "Success", "message": "", "isCanceled": false } } }
+    ],
+    "scanClean25": [
+      { "afterSeconds": 0,  "body": { "state": "Starting", "progressPercent": 0 } },
+      { "afterSeconds": 3,  "body": { "state": "Working",  "progressPercent": 3 } },
+      { "afterSeconds": 23, "body": { "state": "Working",  "progressPercent": 99 } },
+      { "afterSeconds": 25, "body": { "state": "Stopped",  "progressPercent": 100,
+                                      "result": { "result": "Success", "message": "No malware found.", "isCanceled": false } } }
+    ]
+  },
+  "logs": {
+    "success40": [
+      { "afterSeconds": 0,  "status": "Succeeded", "title": "Job started at {start}" },
+      { "afterSeconds": 2,  "status": "Succeeded", "title": "Building list of machines to process" },
+      { "afterSeconds": 4,  "status": "Succeeded", "title": "Queued for processing at {start}" },
+      { "afterSeconds": 6,  "status": "Succeeded", "title": "Required backup infrastructure resources have been assigned" },
+      { "afterSeconds": 12, "status": "Succeeded", "title": "Processing SQL-01" },
+      { "afterSeconds": 20, "status": "Succeeded", "title": "Processing SQL-02" },
+      { "afterSeconds": 28, "status": "Succeeded", "title": "Processing SQL-03" },
+      { "afterSeconds": 34, "status": "Succeeded", "title": "Processing SQL-04" },
+      { "afterSeconds": 38, "status": "Succeeded", "title": "All machines have been processed" },
+      { "afterSeconds": 40, "status": "Succeeded", "title": "Job finished at {end}" }
+    ],
+    "warning40": [
+      { "afterSeconds": 0,  "status": "Succeeded", "title": "Job started at {start}" },
+      { "afterSeconds": 2,  "status": "Succeeded", "title": "Building list of machines to process" },
+      { "afterSeconds": 6,  "status": "Succeeded", "title": "Required backup infrastructure resources have been assigned" },
+      { "afterSeconds": 12, "status": "Succeeded", "title": "Processing SQL-01" },
+      { "afterSeconds": 20, "status": "Succeeded", "title": "Processing SQL-02" },
+      { "afterSeconds": 28, "status": "Succeeded", "title": "Processing SQL-03" },
+      { "afterSeconds": 34, "status": "Warning",   "title": "SQL-04 is powered off and was skipped" },
+      { "afterSeconds": 38, "status": "Warning",   "title": "3 of 4 machines have been processed" },
+      { "afterSeconds": 40, "status": "Warning",   "title": "Job finished with warning at {end}" }
+    ],
+    "failed63": [
+      { "afterSeconds": 0,  "status": "Succeeded", "title": "Job started at {start}" },
+      { "afterSeconds": 2,  "status": "Succeeded", "title": "Building list of machines to process" },
+      { "afterSeconds": 6,  "status": "Succeeded", "title": "Required backup infrastructure resources have been assigned" },
+      { "afterSeconds": 12, "status": "Succeeded", "title": "Processing SQL-01" },
+      { "afterSeconds": 20, "status": "Succeeded", "title": "Processing SQL-02" },
+      { "afterSeconds": 24, "status": "Failed",    "title": "SQL-03: Failed to create a VM snapshot" },
+      { "afterSeconds": 25, "status": "Failed",    "title": "SQL-03: The datastore 'ds-sql-03' has less than 1 % free space" },
+      { "afterSeconds": 27, "status": "Failed",    "title": "Job finished with error at {end}" }
+    ],
+    "success90": [
+      { "afterSeconds": 0,  "status": "Succeeded", "title": "Job started at {start}" },
+      { "afterSeconds": 4,  "status": "Succeeded", "title": "Required backup infrastructure resources have been assigned" },
+      { "afterSeconds": 30, "status": "Succeeded", "title": "Processing SQL-01" },
+      { "afterSeconds": 60, "status": "Succeeded", "title": "Processing SQL-02" },
+      { "afterSeconds": 90, "status": "Succeeded", "title": "Job finished at {end}" }
+    ],
+    "success20": [
+      { "afterSeconds": 0,  "status": "Succeeded", "title": "Quick backup started at {start}" },
+      { "afterSeconds": 3,  "status": "Succeeded", "title": "Creating an incremental restore point for {object}" },
+      { "afterSeconds": 18, "status": "Succeeded", "title": "Changed blocks transferred" },
+      { "afterSeconds": 20, "status": "Succeeded", "title": "Quick backup finished at {end}" }
+    ],
+    "scanClean25": [
+      { "afterSeconds": 0,  "status": "Succeeded", "title": "Backup scan started at {start}" },
+      { "afterSeconds": 3,  "status": "Succeeded", "title": "Mounting the latest restore point of {object}" },
+      { "afterSeconds": 6,  "status": "Succeeded", "title": "Scanning with the antivirus engine" },
+      { "afterSeconds": 23, "status": "Succeeded", "title": "No threats found" },
+      { "afterSeconds": 25, "status": "Succeeded", "title": "Backup scan finished at {end}" }
+    ]
+  },
+  "scenarios": {
+    "happy": {
+      "title": "Happy path",
+      "description": "Start Job → Starting → Working 0→100 % over ~40 s → Stopped / Success",
+      "timelines": { "job": "success40", "quickBackup": "success20", "malwareScan": "scanClean25" }
+    },
+    "warning": {
+      "title": "Warning result",
+      "description": "Same as happy, but ends Stopped / Warning with a skipped machine",
+      "timelines": { "job": "warning40", "quickBackup": "success20", "malwareScan": "scanClean25" }
+    },
+    "failed": {
+      "title": "Failure",
+      "description": "Fails at 63 %; the logs explain why",
+      "timelines": { "job": "failed63", "quickBackup": "success20", "malwareScan": "scanClean25" }
+    },
+    "token-expiry": {
+      "title": "Token expiry",
+      "description": "The server expires the access token after 60 s (compressed); the next call gets 401 and Pulse refreshes silently",
+      "timelines": { "job": "success90", "quickBackup": "success20", "malwareScan": "scanClean25" },
+      "accessTokenLifetimeSeconds": 60
+    },
+    "forbidden": {
+      "title": "Forbidden",
+      "description": "Every account is treated as a Backup Viewer: starting anything returns 403",
+      "timelines": { "job": "success40", "quickBackup": "success20", "malwareScan": "scanClean25" },
+      "forceRole": "Backup Viewer"
+    },
+    "incident": {
+      "title": "Incident response",
+      "description": "One malware event → Quick Backup session → backup scan session → Success",
+      "timelines": { "job": "success40", "quickBackup": "success20", "malwareScan": "scanClean25" },
+      "seedMalwareEvents": true
+    }
+  }
+}

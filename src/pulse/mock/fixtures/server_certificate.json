@@ -1,0 +1,15 @@
+{
+  "operationId": "GetServerCertificate",
+  "body": {
+    "thumbprint": "8F3A2C6E1B9D47F0A5C3E2D1B0A9F8E7D6C5B4A3",
+    "serialNumber": "5F00000012A7C3B9E0D4F1A2000000000012",
+    "keyAlgorithm": "RSA",
+    "keySize": "2048",
+    "subject": "CN=vbr01.lab.local",
+    "issuedTo": "vbr01.lab.local",
+    "issuedBy": "Pulse Lab Root CA",
+    "validFrom": "2026-03-14T11:40:00Z",
+    "validBy": "2028-03-13T11:40:00Z",
+    "isTrusted": true
+  }
+}

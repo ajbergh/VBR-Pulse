@@ -1,0 +1,44 @@
+{
+  "operationId": "GetAllAuthorizationEvents",
+  "body": {
+    "data": [
+      {
+        "id": "3098fda4-1ada-528f-9d29-a15ded6ab9a3",
+        "name": "Delete backup 'Legal archive'",
+        "description": "Four-eyes authorization request.",
+        "state": "Pending",
+        "creationTime": "2026-09-30T11:10:00Z",
+        "createdBy": "LAB\\backup-admin",
+        "expirationTime": "2026-10-07T11:10:00Z"
+      },
+      {
+        "id": "09382335-88be-520a-9799-7af4b3b4127c",
+        "name": "Remove immutability from 'Hardened Linux'",
+        "description": "Four-eyes authorization request.",
+        "state": "Rejected",
+        "creationTime": "2026-09-29T09:40:00Z",
+        "createdBy": "LAB\\backup-admin",
+        "expirationTime": "2026-10-06T09:40:00Z",
+        "processedBy": "secops-lead",
+        "processedTime": "2026-09-29T10:40:00Z"
+      },
+      {
+        "id": "277b3d67-fc86-5585-a08c-05e532de6450",
+        "name": "Add user 'contractor-07' as Backup Administrator",
+        "description": "Four-eyes authorization request.",
+        "state": "Approved",
+        "creationTime": "2026-09-28T09:40:00Z",
+        "createdBy": "LAB\\backup-admin",
+        "expirationTime": "2026-10-05T09:40:00Z",
+        "processedBy": "secops-lead",
+        "processedTime": "2026-09-28T10:40:00Z"
+      }
+    ],
+    "pagination": {
+      "total": 3,
+      "count": 3,
+      "skip": 0,
+      "limit": 3
+    }
+  }
+}

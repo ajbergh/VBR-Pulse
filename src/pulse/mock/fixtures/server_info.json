@@ -1,0 +1,18 @@
+{
+  "operationId": "GetServerInfo",
+  "body": {
+    "vbrId": "ca84797a-b55d-58c0-b9de-30af7b50e3f3",
+    "name": "vbr01.lab.local",
+    "buildVersion": "13.1.0.411",
+    "patches": [],
+    "databaseVendor": "PostgreSql",
+    "sqlServerEdition": "",
+    "sqlServerVersion": "",
+    "databaseSchemaVersion": "13.1.0.411",
+    "databaseContentVersion": "13.1.0.411",
+    "veeamRegistration": {
+      "isRegistered": false
+    },
+    "platform": "Windows"
+  }
+}
