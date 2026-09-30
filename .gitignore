@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+
+# Never commit real configuration or certificates
+.env
+certs/
+
+# Playwright artefacts
+test-results/
+tests/e2e/__screenshots__/actual/

@@ -1,0 +1,71 @@
+[project]
+name = "vbr-pulse"
+version = "0.1.0"
+description = "Demo app that makes the Veeam Backup & Replication 13.1 REST API visible."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "httpx>=0.27",
+    "pydantic>=2.8",
+    "pydantic-settings>=2.4",
+    "jinja2>=3.1",
+    "keyring>=25",
+    "truststore>=0.10",
+    "jsonschema>=4.23",
+]
+
+[project.scripts]
+pulse = "pulse.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.24",
+    "respx>=0.21",
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "datamodel-code-generator[http]>=0.26",
+    "types-jsonschema>=4.26.0.20260518",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pulse"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = [
+    "lab: runs against a real VBR lab server (opt-in with -m lab)",
+]
+addopts = "-m 'not lab'"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["src/pulse/vbr/models/generated.py", "src/pulse/vbr/operations.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "ASYNC", "S", "RUF"]
+ignore = ["S101"]  # assert is fine in tests
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S105", "S106"]  # fake passwords in fixtures
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"
+packages = ["pulse"]
+exclude = ["src/pulse/vbr/models/generated\\.py$"]
+
+[[tool.mypy.overrides]]
+module = ["pulse.vbr.models.generated"]
+ignore_errors = true
+follow_imports = "skip"
