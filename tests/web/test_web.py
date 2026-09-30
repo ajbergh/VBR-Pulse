@@ -393,3 +393,18 @@ def test_incident_steps_stay_locked(web: TestClient, mock: MockVbr) -> None:
     web.post("/ui/incident/quick-backup", headers=HX)  # step 2 before step 1
     assert mock.calls["StartMalwareBackupScan"] == 0
     assert mock.calls["StartVSphereQuickBackupJob"] == 0
+
+
+def test_scenario_change_updates_the_top_bar_chip(web: TestClient) -> None:
+    sign_in(web)
+    html = web.post("/ui/settings/scenario", data={"scenario": "failed"}, headers=HX).text
+    assert '<span id="scenario-chip" hx-swap-oob="innerHTML">Scenario: Failure</span>' in html
+
+
+def test_mock_sign_in_lists_the_mock_accounts(mock: MockVbr) -> None:
+    settings = Settings(_env_file=None)  # type: ignore[call-arg]
+    settings.mock = True
+    with TestClient(create_app(settings, mock=mock)) as client:
+        page = client.get("/signin").text
+    assert "svc-pulse-ops" in page
+    assert "svc-pulse-view" in page

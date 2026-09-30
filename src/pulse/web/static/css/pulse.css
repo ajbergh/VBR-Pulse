@@ -417,6 +417,7 @@ html.presenter .rail-label {
 .event-choice:has(input:checked) { border-color: var(--v-green-dark); box-shadow: inset 4px 0 0 var(--v-green); }
 .event-choice input { margin-top: 5px; width: 18px; height: 18px; accent-color: var(--v-green-dark); }
 .event-text { display: grid; gap: 2px; color: var(--v-near-black); }
+.event-text > span:first-child { display: flex; align-items: center; gap: var(--s1); }
 .stepper { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s3); }
 .step {
   background: var(--v-white); border-radius: var(--radius-card); box-shadow: var(--shadow-card);
@@ -433,7 +434,8 @@ html.presenter .rail-label {
 .step.done .step-num { border-color: var(--v-green-dark); background: var(--v-green-tint); }
 .step-detail { color: var(--v-near-black); margin: 0; }
 .step .track-wrap { margin: var(--s1) 0; }
-.step .track-pct { font-size: 40px; }
+.step .track-head { flex-direction: column; align-items: stretch; gap: 0; }
+.step .track-pct { font-size: 40px; text-align: right; }
 html.presenter .step .track-pct { font-size: 56px; }
 .step .track-title { font-size: var(--fs-body); line-height: var(--lh-body); }
 .step .track-states li::after { margin: 0 var(--s1); }

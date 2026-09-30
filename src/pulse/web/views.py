@@ -26,7 +26,7 @@ JOB_STATUS = {
     "Running": ("running", "Running"),
     "Starting": ("running", "Starting"),
     "Stopping": ("running", "Stopping"),
-    "Stopped": ("idle", "Stopped"),
+    "Stopped": ("idle", "Idle"),  # 13.1 reports idle jobs as Stopped
     "Disabled": ("disabled", "Disabled"),
 }
 RESULT = {
@@ -112,7 +112,20 @@ def duration(start: str | None, end: str | None) -> str:
     seconds = int((finish - begin).total_seconds())
     minutes, secs = divmod(max(seconds, 0), 60)
     hours, minutes = divmod(minutes, 60)
-    return f"{hours} h {minutes:02d} min" if hours else f"{minutes} min {secs:02d} s"
+    if hours:
+        return f"{hours} h {minutes:02d} min"
+    return f"{minutes} min {secs:02d} s" if minutes else f"{secs} s"
+
+
+_WORD = re.compile(r"[A-Z]+(?=[A-Z][a-z])|[A-Z]?[a-z]+|[A-Z]+|\d+")
+
+
+def session_type(value: str) -> str:
+    """`VeeamUpdaterSettingsSync` → `Veeam updater settings sync` (sentence case, PLAN §7.3)."""
+    if value in SESSION_TYPES:
+        return SESSION_TYPES[value]
+    words = _WORD.findall(value) or [value]
+    return " ".join([words[0], *(w if w.isupper() else w.lower() for w in words[1:])])
 
 
 def size_gb(value: float | None) -> str:

@@ -9,7 +9,7 @@
     {% for s in table.sessions %}
     <tr>
       <td>{{ s.name }}</td>
-      <td>{{ SESSION_TYPES.get(s.sessionType, s.sessionType) }}</td>
+      <td>{{ s.sessionType|session_type }}</td>
       <td>{% if s.state == "Stopped" %}<span class="status status-idle">{{ icon("idle") }}Stopped</span>{% else %}<span class="status status-running">{{ icon("running") }}{{ s.state }} <span class="num">{{ s.progressPercent }} %</span></span>{% endif %}</td>
       <td>{{ result(s.result.result) }}</td>
       <td class="num">{{ s.creationTime|clock }}</td>

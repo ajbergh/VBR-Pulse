@@ -6,6 +6,29 @@ response behind it, with a link to the operation in the official reference.
 
 Plan and specification: [docs/VBR_Pulse_Implementation_Plan.md](docs/VBR_Pulse_Implementation_Plan.md).
 
+![Jobs screen with a live backup session filling in green, and the API inspector on the right showing the start request and grouped polling calls](docs/images/jobs-live-session.png)
+
+## Screenshots
+
+All screenshots use mock mode, so they contain no real server data.
+
+| | |
+|---|---|
+| ![API inspector with the StartJob call expanded: request headers with the token redacted, JSON body, response, and Copy as cURL](docs/images/inspector.png) | ![A failed session: red track stopped at 63 %, Failed chip, and the last log lines fetched automatically](docs/images/session-failed.png) |
+| **API inspector.** Every call, with the token redacted, a copy-as-cURL button and a link to the operation in the reference. | **Failure handling.** The session stops at 63 %, and Pulse fetches the log lines automatically. |
+| ![Incident response stepper: malware event on FS-02, a vSphere quick backup, and a backup scan, all successful](docs/images/incident.png) | ![Role-based access: the Backup Viewer account is refused with a 403 callout naming the role](docs/images/rbac-forbidden.png) |
+| **Incident response (13.1).** Malware event → vSphere Quick Backup → backup scan. Each step unlocks when the previous one succeeds. | **Role-based access.** The same Start request returns 403 for a Backup Viewer, and the callout names the role. |
+| ![Repository cards sorted by free space, with capacity bars](docs/images/repositories.png) | ![Presenter mode: larger type, an 88 px progress figure and an icon-only rail](docs/images/presenter-mode.png) |
+| **Repositories.** Sorting happens on the server; the inspector shows `orderColumn` and `orderAsc`. | **Presenter mode (`P`).** Larger type for the back row, an icon-only rail, and a trimmed inspector. |
+
+<details>
+<summary>Sign-in</summary>
+
+![Sign-in card: server address, account profile picker, pinned API revision, and Connect to mock data](docs/images/signin.png)
+
+Accounts are profiles from the configuration. Pulse never asks for a password.
+</details>
+
 ## Quick start (no server needed)
 
 Requires Python 3.12 and [uv](https://docs.astral.sh/uv/).
@@ -129,6 +152,12 @@ uv run python scripts/gen_models.py
 uv run python scripts/make_mock_fixtures.py
 ```
 
+Refresh the README screenshots after UI changes (mock mode only, about three minutes):
+
+```bash
+uv run python scripts/readme_screenshots.py
+```
+
 ### Layout
 
 ```
@@ -161,7 +190,8 @@ environment variables, and keep the port published on loopback.
 - Mock fixtures are authored stand-ins; replace them with anonymised lab recordings
   (`pulse record`, planned for v1.1).
 - The lab is VMware-only, so Quick Backup supports vSphere VMs (and agent-managed machines);
-  Hyper-V was removed. The request is built from `GetBackupObject`, and its `hostName` (the
-  vCenter) is taken from the first segment of the backup object's `path`; confirm against the lab.
+  Hyper-V was removed. The request is built from `GetBackupObject`; its `hostName` is the
+  vCenter, the first segment of the backup object's `path` (confirmed on a 13.1.1.18 lab:
+  `vcenter\datacenter\folder\vm`). The Quick Backup call itself hasn't run against the lab yet.
 - Mock-only guesses (status codes for "already running", the result of a user-stopped job)
   should be checked against the lab server.

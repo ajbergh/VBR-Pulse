@@ -10,7 +10,7 @@ from collections.abc import AsyncIterator
 
 import pytest
 
-from pulse.config import ProfileError, Settings
+from pulse.config import ProfileError, Settings, resolve_secret
 from pulse.inspector.bus import InspectorBus
 from pulse.preflight import DEMO_TAG
 from pulse.vbr.client import VbrClient
@@ -77,9 +77,9 @@ async def test_demo_job_runs_to_a_result(ops: VbrClient) -> None:
 async def test_viewer_is_forbidden_to_start(ops: VbrClient) -> None:
     settings = _settings()
     try:
-        settings.profile("view")
+        resolve_secret(settings.profile("view"))
     except ProfileError:
-        pytest.skip("No viewer profile configured")
+        pytest.skip("No viewer profile (or no keyring entry for it)")
     states = await ops.request("GetAllJobsStates", params={"limit": 1})
     async for viewer in _client("view"):
         with pytest.raises(VbrForbidden):

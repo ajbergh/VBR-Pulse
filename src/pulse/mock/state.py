@@ -341,7 +341,7 @@ class MockVbr:
         state["sessionId"] = latest.id
         state["lastRun"] = body["creationTime"]
         if body["state"] == "Stopped":
-            state["status"] = "Inactive"
+            state["status"] = "Stopped"  # what 13.1 reports for an idle job
             state["lastResult"] = body["result"]["result"]
             state["progressPercent"] = 0
         else:
@@ -408,7 +408,7 @@ class MockVbr:
 
     def retry_job(self, req: Request) -> dict[str, Any]:
         job = self.job_state(req.path["id"])
-        if job["lastResult"] not in ("Failed", "Warning") or job["status"] != "Inactive":
+        if job["lastResult"] not in ("Failed", "Warning") or job["status"] != "Stopped":
             raise MockError(
                 400,
                 "UnexpectedContent",

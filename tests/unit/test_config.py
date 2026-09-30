@@ -74,3 +74,8 @@ def test_missing_profile_user(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("PULSE_PROFILE_NOPE_USER", raising=False)
     with pytest.raises(ProfileError, match="PULSE_PROFILE_NOPE_USER"):
         Settings(_env_file=None).profile("nope")  # type: ignore[call-arg]
+
+
+def test_ca_bundle_comment_is_not_a_path(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("PULSE_CA_BUNDLE", "# or leave empty to use system trust")
+    assert Settings(_env_file=None).ca_bundle is None  # type: ignore[call-arg]

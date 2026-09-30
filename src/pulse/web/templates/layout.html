@@ -14,7 +14,7 @@
   </p>
   <span class="mode-badge mode-{{ conn.mode }}" title="{{ 'Mock data, no server involved' if conn.mode == 'mock' else 'Connected to a live server' }}">{{ "Mock" if conn.mode == "mock" else "Live" }}</span>
   {% if scenario %}
-  <button type="button" class="scenario-chip" data-open="scenario-picker" aria-haspopup="dialog">Scenario: {{ scenario.title }}</button>
+  <button type="button" id="scenario-chip" class="scenario-chip" data-open="scenario-picker" aria-haspopup="dialog">Scenario: {{ scenario.title }}</button>
   {% endif %}
   <form class="account" hx-post="/ui/switch-profile" hx-trigger="change">
     <label for="account-switch" class="sr-only">Signed-in account</label>

@@ -103,7 +103,7 @@ def test_job_state_follows_live_session(mock: MockVbr, clock: FakeClock) -> None
     clock.advance(30)
     done = mock.job_state(jid)
     assert (done["status"], done["lastResult"], done["progressPercent"]) == (
-        "Inactive",
+        "Stopped",
         "Success",
         0,
     )

@@ -2,7 +2,7 @@
 {%- set failed = snap.ended and snap.result == "Failed" -%}
 <section class="track{% if snap.ended %} is-ended{% endif %}" id="track-{{ snap.id }}" tabindex="-1" aria-labelledby="track-title-{{ snap.id }}">
   <div class="track-head">
-    <h2 class="track-title" id="track-title-{{ snap.id }}">{{ snap.name }} · {{ SESSION_TYPES.get(snap.session_type, snap.session_type) }} session <span class="mono">{{ snap.id|short_id }}</span></h2>
+    <h2 class="track-title" id="track-title-{{ snap.id }}">{{ snap.name }} · {{ snap.session_type|session_type }} session <span class="mono">{{ snap.id|short_id }}</span></h2>
     <p class="track-pct" aria-hidden="true">{{ snap.progress }} %</p>
   </div>
   <div class="track-bar" role="progressbar" aria-labelledby="track-title-{{ snap.id }}"
@@ -37,7 +37,7 @@
     {% endfor %}
   </ol>
   {% endif %}
-  {% elif snap.ended and snap.message %}
+  {% elif snap.ended and snap.message and snap.message != snap.result %}
   <p class="track-message">{{ snap.message }}</p>
   {% endif %}
   <p class="track-caption">{% if snap.ended %}The session is stopped: its result is {{ snap.result }}. Automation must read <code>result.result</code>, not just the state.{% else %}The start request returned instantly with this session. Pulse is polling <code>GET /sessions/{id}</code>.{% endif %}</p>

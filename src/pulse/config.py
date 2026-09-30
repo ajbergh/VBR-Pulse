@@ -12,7 +12,7 @@ from typing import Literal
 
 import keyring
 from dotenv import dotenv_values
-from pydantic import Field, SecretStr, field_validator
+from pydantic import Field, PrivateAttr, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from pulse.vbr.client import Credentials
@@ -25,6 +25,8 @@ ENV_FILE = Path(".env")
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=ENV_FILE, env_file_encoding="utf-8", extra="ignore")
+    # Where profile variables are read from; None means the process environment only.
+    _env_path: Path | None = PrivateAttr(default=ENV_FILE)
 
     vbr_url: str = Field(default="https://localhost", alias="PULSE_VBR_URL")
     api_version: str = Field(default=SPEC_VERSION, alias="PULSE_API_VERSION")
@@ -40,7 +42,12 @@ class Settings(BaseSettings):
     @field_validator("ca_bundle", mode="before")
     @classmethod
     def _empty_is_none(cls, value: object) -> object:
-        return None if value in ("", None) else value
+        # dotenv reads `KEY=   # comment` as the comment itself; treat that as empty too.
+        if value is None or (isinstance(value, str) and value.strip() in ("", "#")):
+            return None
+        if isinstance(value, str) and value.strip().startswith("#"):
+            return None
+        return value
 
     @property
     def mode(self) -> Literal["live", "mock"]:
@@ -57,7 +64,7 @@ class Settings(BaseSettings):
         return [p.strip().lower() for p in self.profiles_csv.split(",") if p.strip()]
 
     def profile(self, name: str) -> Profile:
-        env = _environment(ENV_FILE)
+        env = _environment(self._env_path)
         key = f"PULSE_PROFILE_{name.upper()}"
         username = env.get(f"{key}_USER")
         if not username:
@@ -101,8 +108,9 @@ MOCK_PROFILES = (
 )
 
 
-def _environment(env_file: Path) -> dict[str, str]:
-    file_values = {k: v for k, v in dotenv_values(env_file).items() if v is not None}
+def _environment(env_file: Path | None) -> dict[str, str]:
+    values = dotenv_values(env_file) if env_file is not None else {}
+    file_values = {k: v for k, v in values.items() if v is not None}
     return {**file_values, **os.environ}
 
 

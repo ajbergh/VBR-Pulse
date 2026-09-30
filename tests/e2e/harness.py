@@ -26,6 +26,7 @@ def free_port() -> int:
 def running_app(scenario: str = "happy", poll_seconds: int = 1) -> Iterator[str]:
     """Yield the base URL of a live mock-mode server; stop it afterwards."""
     settings = Settings(_env_file=None)  # type: ignore[call-arg]
+    settings._env_path = None  # never read the developer's real .env (lab names, users)
     settings.mock = True
     settings.mock_scenario = scenario
     settings.poll_seconds = poll_seconds

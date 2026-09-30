@@ -41,6 +41,7 @@ env.filters.update(
     clock=views.clock_time,
     clock_seconds=views.clock_seconds,
     duration=views.duration,
+    session_type=views.session_type,
     size_gb=views.size_gb,
     short_id=views.short_id,
     display_path=views.display_path,

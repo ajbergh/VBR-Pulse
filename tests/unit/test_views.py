@@ -186,3 +186,18 @@ def test_scan_request_matches_the_spec() -> None:
     body = backup_scan_request(VSPHERE["backupId"], VSPHERE["id"])
     op = OPERATIONS["StartMalwareBackupScan"]
     validate_request_body(op.operation_id, op.method, op.path, body)
+
+
+def test_session_type_labels() -> None:
+    assert views.session_type("BackupJob") == "Backup job"
+    assert views.session_type("VeeamUpdaterSettingsSync") == "Veeam updater settings sync"
+    assert views.session_type("VolumesDiscover") == "Volumes discover"
+    assert views.session_type("SecurityComplianceAnalyzer") == "Security compliance analyzer"
+
+
+def test_short_durations() -> None:
+    assert views.duration("2026-09-30T08:00:00Z", "2026-09-30T08:00:18Z") == "18 s"
+    assert (
+        views.duration("2026-09-30T17:08:38.754362-04:00", "2026-09-30T17:10:24.1-04:00")
+        == "1 min 45 s"
+    )

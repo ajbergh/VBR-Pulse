@@ -10,6 +10,7 @@ from urllib.parse import urlsplit
 
 from fastapi import APIRouter, Depends, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
+from markupsafe import escape
 
 from pulse.config import ProfileError
 from pulse.mock.scenarios import SCENARIO_KEYS
@@ -565,7 +566,9 @@ async def set_scenario(
     if scenario in SCENARIO_KEYS:
         state.mock.set_scenario(scenario)
     title = state.mock.scenario.title
-    return Response(toast_html(f"Mock scenario: {title}."), media_type="text/html")
+    chip = f'<span id="scenario-chip" hx-swap-oob="innerHTML">Scenario: {escape(title)}</span>'
+    # str(): `Markup + str` would escape the chip markup.
+    return Response(str(toast_html(f"Mock scenario: {title}.")) + chip, media_type="text/html")
 
 
 @router.post("/ui/settings/poll", response_class=HTMLResponse)
