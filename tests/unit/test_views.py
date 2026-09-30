@@ -139,39 +139,23 @@ def test_clock_formats() -> None:
 
 # ---------------------------------------------------------------- incident request builders
 
-HYPERV = {
+VSPHERE = {
     "id": "0403c0de-0000-4000-8000-000000000002",
     "name": "FS-02",
-    "platformName": "HyperV",
+    "platformName": "VMware",
     "backupId": "5c0c2442-0000-4000-8000-000000000001",
-    "objectId": "5b0c9a61-3f7e",
-    "hvType": "VirtualMachine",
-    "path": "hv01.lab.local\\FS-02",
+    "objectId": "vm-1042",
+    "viType": "VirtualMachine",
+    "path": "vcsa01.lab.local\\DC-Lab\\Cluster-01\\FS-02",
 }
 
 
-@pytest.mark.parametrize(
-    ("backup_object", "operation_id", "host"),
-    [
-        (HYPERV, "StartHyperVQuickBackupJob", "hv01.lab.local"),
-        (
-            {
-                **HYPERV,
-                "platformName": "VMware",
-                "viType": "VirtualMachine",
-                "path": "vcsa.lab.local/DC1/FS-02",
-            },
-            "StartVSphereQuickBackupJob",
-            "vcsa.lab.local",
-        ),
-    ],
-)
-def test_quick_backup_request_matches_the_spec(
-    backup_object: dict[str, Any], operation_id: str, host: str
-) -> None:
-    op_id, body = quick_backup_request(backup_object)
-    assert op_id == operation_id
-    assert body["hostName"] == host
+@pytest.mark.parametrize("path", [VSPHERE["path"], "vcsa01.lab.local/DC-Lab/FS-02"])
+def test_vsphere_quick_backup_request_matches_the_spec(path: str) -> None:
+    op_id, body = quick_backup_request({**VSPHERE, "path": path})
+    assert op_id == "StartVSphereQuickBackupJob"
+    assert body["hostName"] == "vcsa01.lab.local"
+    assert (body["platform"], body["objectId"]) == ("VSphere", "vm-1042")
     op = OPERATIONS[op_id]
     validate_request_body(op_id, op.method, op.path, body)
 
@@ -192,11 +176,13 @@ def test_agent_quick_backup_request() -> None:
 def test_unsupported_machine() -> None:
     with pytest.raises(UnsupportedMachine):
         quick_backup_request({"name": "tenant", "platformName": "EntraID"})
+    with pytest.raises(UnsupportedMachine):  # the lab is VMware-only; Hyper-V isn't wired up
+        quick_backup_request({**VSPHERE, "platformName": "HyperV"})
     with pytest.raises(UnsupportedMachine, match="protection group"):
         quick_backup_request({"name": "LAPTOP", "platformName": "LinuxPhysical"})
 
 
 def test_scan_request_matches_the_spec() -> None:
-    body = backup_scan_request(HYPERV["backupId"], HYPERV["id"])
+    body = backup_scan_request(VSPHERE["backupId"], VSPHERE["id"])
     op = OPERATIONS["StartMalwareBackupScan"]
     validate_request_body(op.operation_id, op.method, op.path, body)

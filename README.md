@@ -160,7 +160,8 @@ environment variables, and keep the port published on loopback.
 
 - Mock fixtures are authored stand-ins; replace them with anonymised lab recordings
   (`pulse record`, planned for v1.1).
-- Live-mode Quick Backup builds the machine description from `GetBackupObject`. The Hyper-V
-  host name comes from the backup object's `path`; confirm against the lab.
+- The lab is VMware-only, so Quick Backup supports vSphere VMs (and agent-managed machines);
+  Hyper-V was removed. The request is built from `GetBackupObject`, and its `hostName` (the
+  vCenter) is taken from the first segment of the backup object's `path`; confirm against the lab.
 - Mock-only guesses (status codes for "already running", the result of a user-stopped job)
   should be checked against the lab server.

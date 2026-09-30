@@ -9,7 +9,6 @@ from __future__ import annotations
 from typing import Any
 
 QUICK_BACKUP_OPERATIONS = {
-    "HyperV": "StartHyperVQuickBackupJob",
     "VMware": "StartVSphereQuickBackupJob",
     "WindowsPhysical": "StartAgentQuickBackupJob",
     "LinuxPhysical": "StartAgentQuickBackupJob",
@@ -21,7 +20,7 @@ class UnsupportedMachine(ValueError):
 
 
 def _host_from_path(path: str | None) -> str:
-    # Backup-object paths look like `host\vm` (Hyper-V) or `vcenter\datacenter\…\vm`.
+    # vSphere backup-object paths look like `vcenter\datacenter\…\vm`.
     return (path or "").replace("/", "\\").split("\\", 1)[0]
 
 
@@ -32,14 +31,6 @@ def quick_backup_request(backup_object: dict[str, Any]) -> tuple[str, dict[str, 
     if operation_id is None:
         raise UnsupportedMachine(f"Quick Backup isn't available for {platform or 'this'} machines.")
     name = backup_object.get("name", "")
-    if platform == "HyperV":
-        return operation_id, {
-            "platform": "HyperV",
-            "hostName": _host_from_path(backup_object.get("path")),
-            "name": name,
-            "type": backup_object.get("hvType") or "VirtualMachine",
-            "objectId": backup_object["objectId"],
-        }
     if platform == "VMware":
         return operation_id, {
             "platform": "VSphere",

@@ -13,7 +13,6 @@ from pulse.vbr.spec import load_spec, validate_request_body
 # Operations that carry a JSON body in v1 (PLAN §5.2).
 BODY_OPERATIONS = [
     "StartJob",
-    "StartHyperVQuickBackupJob",
     "StartAgentQuickBackupJob",
     "StartVSphereQuickBackupJob",
     "StartMalwareBackupScan",
@@ -72,7 +71,7 @@ def test_polymorphic_body_rejects_unknown_type() -> None:
 
 
 def test_quick_backup_requires_object_fields() -> None:
-    _, body = _examples("StartHyperVQuickBackupJob")[0]
+    _, body = _examples("StartVSphereQuickBackupJob")[0]
     broken = {k: v for k, v in body.items() if k != "hostName"}
     with pytest.raises(VbrRequestInvalid, match="hostName"):
-        _validate("StartHyperVQuickBackupJob", broken)
+        _validate("StartVSphereQuickBackupJob", broken)

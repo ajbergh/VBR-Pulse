@@ -56,7 +56,6 @@ _SUGGEST = {
     "GetAllRepositoriesStates": "ops",
     "StartMalwareBackupScan": "ir",
     "CreateSuspiciousActivityEvent": "ir",
-    "StartHyperVQuickBackupJob": "ir",
     "StartVSphereQuickBackupJob": "ir",
     "StartAgentQuickBackupJob": "ir",
 }

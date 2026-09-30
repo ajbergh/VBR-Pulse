@@ -5,7 +5,7 @@
       {
         "id": "1da148ee-6814-5eab-be4c-1d790290a886",
         "name": "FS-01",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-09-30T07:10:00Z",
         "backupId": "45af5331-ca41-586d-bf13-989ad270a63d",
@@ -21,7 +21,7 @@
       {
         "id": "75c277a4-ff45-5239-b021-edad5e7332b8",
         "name": "FS-01",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-09-29T07:10:00Z",
         "backupId": "45af5331-ca41-586d-bf13-989ad270a63d",
@@ -37,7 +37,7 @@
       {
         "id": "970bf292-f2b2-549b-9637-20c1675ad340",
         "name": "FS-01",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-09-28T07:10:00Z",
         "backupId": "45af5331-ca41-586d-bf13-989ad270a63d",
@@ -53,7 +53,7 @@
       {
         "id": "806e74d1-8382-56ce-864e-7d22de6ac8bc",
         "name": "FS-02",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-09-30T07:10:00Z",
         "backupId": "45af5331-ca41-586d-bf13-989ad270a63d",
@@ -69,7 +69,7 @@
       {
         "id": "4a19522b-1445-521f-a8d1-c4304c63c93b",
         "name": "FS-02",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-09-29T07:10:00Z",
         "backupId": "45af5331-ca41-586d-bf13-989ad270a63d",
@@ -85,7 +85,7 @@
       {
         "id": "48a1f494-c262-53b3-95b4-40be1b2ce521",
         "name": "FS-02",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-09-28T07:10:00Z",
         "backupId": "45af5331-ca41-586d-bf13-989ad270a63d",
@@ -101,7 +101,7 @@
       {
         "id": "674f9036-282f-52bd-9efa-b51b803a3b7a",
         "name": "FS-03",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-09-30T07:10:00Z",
         "backupId": "45af5331-ca41-586d-bf13-989ad270a63d",
@@ -117,7 +117,7 @@
       {
         "id": "58d84630-0a97-5ace-ad7b-b6563d54561f",
         "name": "FS-03",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-09-29T07:10:00Z",
         "backupId": "45af5331-ca41-586d-bf13-989ad270a63d",
@@ -133,7 +133,7 @@
       {
         "id": "5976dda1-595e-568b-b185-acaf875bb017",
         "name": "FS-03",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-09-28T07:10:00Z",
         "backupId": "45af5331-ca41-586d-bf13-989ad270a63d",

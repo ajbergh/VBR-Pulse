@@ -37,7 +37,6 @@ RESULT = {
 }
 JOB_TYPES = {
     "VSphereBackup": "vSphere backup",
-    "HyperVBackup": "Hyper-V backup",
     "VSphereReplica": "vSphere replica",
     "BackupCopy": "Backup copy",
     "WindowsAgentBackup": "Windows agent",
@@ -65,7 +64,6 @@ ACTIONS = {
     "StartJob": "start jobs",
     "StopJob": "stop jobs",
     "RetryJob": "retry jobs",
-    "StartHyperVQuickBackupJob": "start quick backups",
     "StartVSphereQuickBackupJob": "start quick backups",
     "StartAgentQuickBackupJob": "start quick backups",
     "StartMalwareBackupScan": "start backup scans",

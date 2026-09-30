@@ -278,7 +278,7 @@ def test_incident_flow(web: TestClient, mock: MockVbr, app: FastAPI) -> None:
     for op in (
         "ViewSuspiciousActivityEvents",
         "GetBackupObject",
-        "StartHyperVQuickBackupJob",
+        "StartVSphereQuickBackupJob",
         "StartMalwareBackupScan",
     ):
         assert op in ops
@@ -392,4 +392,4 @@ def test_incident_steps_stay_locked(web: TestClient, mock: MockVbr) -> None:
     web.post("/ui/incident/scan", headers=HX)  # step 3 before steps 1 and 2
     web.post("/ui/incident/quick-backup", headers=HX)  # step 2 before step 1
     assert mock.calls["StartMalwareBackupScan"] == 0
-    assert mock.calls["StartHyperVQuickBackupJob"] == 0
+    assert mock.calls["StartVSphereQuickBackupJob"] == 0

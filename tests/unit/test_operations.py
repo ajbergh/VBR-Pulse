@@ -18,7 +18,6 @@ PLANNED = [
     "StartJob",
     "StopJob",
     "RetryJob",
-    "StartHyperVQuickBackupJob",
     "StartAgentQuickBackupJob",
     "StartVSphereQuickBackupJob",
     "GetSession",

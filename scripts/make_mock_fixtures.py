@@ -46,8 +46,8 @@ def page(data: list[dict[str, Any]]) -> dict[str, Any]:
 JOBS: list[tuple[str, str, str, str, str, float, float | None, int]] = [
     ("SQL Daily", "VSphereBackup", "Vm", "Success", "Inactive", 3.67, 8.33, 4),
     ("SQL Logs hourly", "VSphereBackup", "Vm", "Success", "Inactive", 0.67, 0.33, 4),
-    ("SQL Reporting", "HyperVBackup", "Vm", "Success", "Inactive", 5.0, 19.0, 2),
-    ("File servers", "HyperVBackup", "Vm", "Success", "Inactive", 4.5, 19.5, 3),
+    ("SQL Reporting", "VSphereBackup", "Vm", "Success", "Inactive", 5.0, 19.0, 2),
+    ("File servers", "VSphereBackup", "Vm", "Success", "Inactive", 4.5, 19.5, 3),
     ("DR replica", "VSphereReplica", "Vm", "Warning", "Inactive", 5.67, 6.33, 12),
     ("Exchange mailbox servers", "VSphereBackup", "Vm", "Success", "Inactive", 6.0, 18.0, 3),
     ("Domain controllers", "VSphereBackup", "Vm", "Success", "Inactive", 7.0, 17.0, 2),
@@ -67,32 +67,32 @@ JOBS: list[tuple[str, str, str, str, str, float, float | None, int]] = [
         48,
     ),
     ("Offsite copy", "BackupCopy", "Vm", "Success", "Inactive", 1.0, None, 36),
-    ("Hyper-V lab hosts", "HyperVBackup", "Vm", "Success", "Inactive", 11.0, 13.0, 5),
+    ("ESXi lab VMs", "VSphereBackup", "Vm", "Success", "Inactive", 11.0, 13.0, 5),
     ("VDI golden images", "VSphereBackup", "Vm", "Success", "Inactive", 30.0, 138.0, 3),
     ("SharePoint farm", "VSphereBackup", "Vm", "Success", "Inactive", 6.0, 18.0, 4),
     ("CRM database", "VSphereBackup", "Vm", "Success", "Inactive", 4.0, 20.0, 2),
-    ("HR systems", "HyperVBackup", "Vm", "Success", "Inactive", 7.5, 16.5, 3),
+    ("HR systems", "VSphereBackup", "Vm", "Success", "Inactive", 7.5, 16.5, 3),
     ("Finance close", "VSphereBackup", "Vm", "Failed", "Inactive", 3.0, 21.0, 5),
-    ("Print servers", "HyperVBackup", "Vm", "Success", "Disabled", 170.0, None, 2),
+    ("Print servers", "VSphereBackup", "Vm", "Success", "Disabled", 170.0, None, 2),
     ("Jump hosts", "VSphereBackup", "Vm", "Success", "Inactive", 8.0, 16.0, 3),
     ("Kubernetes etcd VMs", "VSphereBackup", "Vm", "Success", "Inactive", 1.5, 4.5, 3),
     ("Monitoring stack", "VSphereBackup", "Vm", "Success", "Inactive", 9.0, 15.0, 4),
-    ("Ticketing system", "HyperVBackup", "Vm", "Success", "Inactive", 5.5, 18.5, 2),
+    ("Ticketing system", "VSphereBackup", "Vm", "Success", "Inactive", 5.5, 18.5, 2),
     ("Intranet", "VSphereBackup", "Vm", "Success", "Inactive", 6.0, 18.0, 2),
     ("Payroll", "VSphereBackup", "Vm", "Success", "Inactive", 12.0, 12.0, 2),
     ("Legal archive", "WindowsAgentBackup", "Server", "Success", "Inactive", 20.0, 148.0, 1),
     ("Dev databases", "VSphereBackup", "Vm", "Warning", "Inactive", 10.0, 14.0, 9),
-    ("QA environment", "HyperVBackup", "Vm", "Success", "Inactive", 10.0, 14.0, 11),
+    ("QA environment", "VSphereBackup", "Vm", "Success", "Inactive", 10.0, 14.0, 11),
     ("Staging web", "VSphereBackup", "Vm", "Success", "Inactive", 10.0, 14.0, 4),
     ("CI runners", "LinuxAgentBackup", "Server", "Success", "Inactive", 3.0, 21.0, 6),
     ("Backup proxies", "VSphereBackup", "Vm", "Success", "Inactive", 22.0, 2.0, 4),
     ("Mail relays", "VSphereBackup", "Vm", "Success", "Inactive", 6.0, 18.0, 2),
-    ("DNS and DHCP", "HyperVBackup", "Vm", "Success", "Inactive", 7.0, 17.0, 2),
+    ("DNS and DHCP", "VSphereBackup", "Vm", "Success", "Inactive", 7.0, 17.0, 2),
     ("Identity services", "VSphereBackup", "Vm", "Success", "Inactive", 7.0, 17.0, 3),
     ("Data warehouse", "VSphereBackup", "Vm", "Success", "Inactive", 13.0, 11.0, 2),
     ("ETL workers", "LinuxAgentBackup", "Server", "Success", "Inactive", 13.0, 11.0, 4),
     ("Analytics notebooks", "VSphereBackup", "Vm", "Success", "Inactive", 14.0, 10.0, 3),
-    ("Call center", "HyperVBackup", "Vm", "Success", "Inactive", 5.0, 19.0, 4),
+    ("Call center", "VSphereBackup", "Vm", "Success", "Inactive", 5.0, 19.0, 4),
     (
         "Warehouse scanners",
         "WindowsAgentBackup",
@@ -151,9 +151,7 @@ def repo_id(name: str) -> str:
 def job_states() -> dict[str, Any]:
     data = []
     for name, jtype, workload, result, status, last, nxt, objects in JOBS:
-        repo = REPO_BY_JOB_TYPE.get(
-            jtype, "Primary ReFS" if jtype != "HyperVBackup" else "Hardened Linux"
-        )
+        repo = REPO_BY_JOB_TYPE.get(jtype, "Primary ReFS")
         state: dict[str, Any] = {
             "id": job_id(name),
             "name": name,
@@ -201,7 +199,6 @@ SESSION_TYPE = {"VSphereReplica": "ReplicaJob", "BackupCopy": "BackupCopyJob"}
 PLATFORM = {
     "VSphereBackup": "VMware",
     "VSphereReplica": "VMware",
-    "HyperVBackup": "HyperV",
     "WindowsAgentBackup": "WindowsPhysical",
     "LinuxAgentBackup": "LinuxPhysical",
     "BackupCopy": "VMware",
@@ -280,7 +277,7 @@ def restore_points() -> dict[str, Any]:
                 {
                     "id": uid("restorePoint", vm, str(n)),
                     "name": vm,
-                    "platformName": "HyperV",
+                    "platformName": "VMware",
                     "platformId": ZERO_UUID,
                     "creationTime": ts(-h(4.5 + 24 * n)),
                     "backupId": FILE_BACKUP,
@@ -322,26 +319,22 @@ def malware_events() -> dict[str, Any]:
 
 
 def backup_objects() -> dict[str, Any]:
-    """Hyper-V backup objects: what the incident flow looks up from a malware event."""
-    vms = {
-        "FS-01": "0c3e8f2a-6d41-4b7e-9a15-3f2d7c8b9e01",
-        "FS-02": FS02["uuid"],
-        "FS-03": "7e2d1c4b-8a95-4f36-b0c7-1d2e3f4a5b03",
-    }
+    """vSphere backup objects: what the incident flow looks up from a malware event."""
+    vms = {"FS-01": "vm-1041", "FS-02": "vm-1042", "FS-03": "vm-1043"}  # vCenter morefs
     data = [
         {
             "id": backup_object_id(vm),
             "name": vm,
             "type": "VM",
-            "platformName": "HyperV",
+            "platformName": "VMware",
             "platformId": ZERO_UUID,
             "restorePointsCount": 3,
             "lastRunFailed": False,
             "backupId": FILE_BACKUP,
             "size": 214_748_364_800,
             "objectId": object_id,
-            "hvType": "VirtualMachine",
-            "path": "hv01.lab.local\\" + vm,
+            "viType": "VirtualMachine",
+            "path": "\\".join(("vcsa01.lab.local", "DC-Lab", "Cluster-01", vm)),
         }
         for vm, object_id in vms.items()
     ]

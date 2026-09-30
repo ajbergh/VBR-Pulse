@@ -22,7 +22,6 @@ ALLOWED_WRITES = {
     "StartJob",
     "StopJob",
     "RetryJob",
-    "StartHyperVQuickBackupJob",
     "StartVSphereQuickBackupJob",
     "StartAgentQuickBackupJob",
     "StartMalwareBackupScan",

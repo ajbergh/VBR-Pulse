@@ -64,10 +64,10 @@ def test_name_filter_is_wildcard_and_case_insensitive(mock: MockVbr) -> None:
 
 
 def test_type_filter_and_paging(mock: MockVbr) -> None:
-    page = mock.get_all_jobs_states(req(query={"typeFilter": "HyperVBackup", "limit": "3"}))
+    page = mock.get_all_jobs_states(req(query={"typeFilter": "LinuxAgentBackup", "limit": "3"}))
     assert page["pagination"]["count"] == 3
     assert page["pagination"]["total"] > 3
-    assert all(j["type"] == "HyperVBackup" for j in page["data"])
+    assert all(j["type"] == "LinuxAgentBackup" for j in page["data"])
 
 
 def test_server_side_sorting(mock: MockVbr) -> None:
@@ -187,7 +187,7 @@ def test_agent_quick_backup_returns_job_id_and_session_is_findable(mock: MockVbr
         ("svc-pulse-view", "StartJob", False),
         ("svc-pulse-view", "GetAllJobsStates", True),
         ("svc-pulse-ir", "StartMalwareBackupScan", True),
-        ("svc-pulse-ir", "StartHyperVQuickBackupJob", True),
+        ("svc-pulse-ir", "StartVSphereQuickBackupJob", True),
         ("svc-pulse-ir", "StartJob", False),
         ("svc-pulse-ops", "CreateSuspiciousActivityEvent", False),
     ],

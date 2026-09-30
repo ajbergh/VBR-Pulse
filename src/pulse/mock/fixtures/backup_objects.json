@@ -6,43 +6,43 @@
         "id": "84c9fb91-03da-5fe6-a9ab-7e016637ed6e",
         "name": "FS-01",
         "type": "VM",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "restorePointsCount": 3,
         "lastRunFailed": false,
         "backupId": "45af5331-ca41-586d-bf13-989ad270a63d",
         "size": 214748364800,
-        "objectId": "0c3e8f2a-6d41-4b7e-9a15-3f2d7c8b9e01",
-        "hvType": "VirtualMachine",
-        "path": "hv01.lab.local\\FS-01"
+        "objectId": "vm-1041",
+        "viType": "VirtualMachine",
+        "path": "vcsa01.lab.local\\DC-Lab\\Cluster-01\\FS-01"
       },
       {
         "id": "0403e69a-03aa-56b6-85f9-5ebc7592b41e",
         "name": "FS-02",
         "type": "VM",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "restorePointsCount": 3,
         "lastRunFailed": false,
         "backupId": "45af5331-ca41-586d-bf13-989ad270a63d",
         "size": 214748364800,
-        "objectId": "5b0c9a61-3f7e-4c2a-8d11-0f6a2e9b7c42",
-        "hvType": "VirtualMachine",
-        "path": "hv01.lab.local\\FS-02"
+        "objectId": "vm-1042",
+        "viType": "VirtualMachine",
+        "path": "vcsa01.lab.local\\DC-Lab\\Cluster-01\\FS-02"
       },
       {
         "id": "c324e65f-c159-597b-acee-3f3c5bd3c4c6",
         "name": "FS-03",
         "type": "VM",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "restorePointsCount": 3,
         "lastRunFailed": false,
         "backupId": "45af5331-ca41-586d-bf13-989ad270a63d",
         "size": 214748364800,
-        "objectId": "7e2d1c4b-8a95-4f36-b0c7-1d2e3f4a5b03",
-        "hvType": "VirtualMachine",
-        "path": "hv01.lab.local\\FS-03"
+        "objectId": "vm-1043",
+        "viType": "VirtualMachine",
+        "path": "vcsa01.lab.local\\DC-Lab\\Cluster-01\\FS-03"
       }
     ],
     "pagination": {

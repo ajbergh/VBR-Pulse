@@ -28,23 +28,23 @@
         "id": "a80b7f6b-d49f-5528-99f6-45e936882ecd",
         "jobId": "a66a0a63-8725-554c-8bca-a6e5e2826076",
         "name": "SQL Reporting",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-07-02T11:40:00Z",
         "repositoryId": "e0c6d077-6f9b-50f9-946d-d5ae141d3cce",
         "repositoryName": "Primary ReFS",
-        "jobType": "HyperVBackup"
+        "jobType": "VSphereBackup"
       },
       {
         "id": "45af5331-ca41-586d-bf13-989ad270a63d",
         "jobId": "905dca27-07f6-5479-9af4-f875f7094822",
         "name": "File servers",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-07-02T11:40:00Z",
         "repositoryId": "e0c6d077-6f9b-50f9-946d-d5ae141d3cce",
         "repositoryName": "Primary ReFS",
-        "jobType": "HyperVBackup"
+        "jobType": "VSphereBackup"
       },
       {
         "id": "a14059c9-6e5f-57a5-8beb-b344594d3059",
@@ -146,15 +146,15 @@
         "jobType": "BackupCopy"
       },
       {
-        "id": "e02369ef-dbc2-5a3a-a572-bb76051beb6c",
-        "jobId": "eb8e80e7-ab39-53a7-9cb6-4364334f0bae",
-        "name": "Hyper-V lab hosts",
-        "platformName": "HyperV",
+        "id": "5f43c115-8249-5708-8005-4a6bb03cf817",
+        "jobId": "ece0ca6f-ef44-5a29-91c9-6c4386a81451",
+        "name": "ESXi lab VMs",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-07-02T11:40:00Z",
         "repositoryId": "e0c6d077-6f9b-50f9-946d-d5ae141d3cce",
         "repositoryName": "Primary ReFS",
-        "jobType": "HyperVBackup"
+        "jobType": "VSphereBackup"
       },
       {
         "id": "81d2607d-ab6d-5d9d-a1ef-ea497331b666",
@@ -193,12 +193,12 @@
         "id": "51997dcf-485d-5a47-9645-9627754f7f40",
         "jobId": "0e081a33-1823-5402-9710-65aba020c2f8",
         "name": "HR systems",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-07-02T11:40:00Z",
         "repositoryId": "e0c6d077-6f9b-50f9-946d-d5ae141d3cce",
         "repositoryName": "Primary ReFS",
-        "jobType": "HyperVBackup"
+        "jobType": "VSphereBackup"
       },
       {
         "id": "29f316b6-509a-502c-a573-033c7010c50b",
@@ -215,12 +215,12 @@
         "id": "fce9dc4c-988e-5ffc-845b-7bbee01d2d66",
         "jobId": "b41dd9f9-7d3b-5b73-983f-3ef6701dc77d",
         "name": "Print servers",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-07-02T11:40:00Z",
         "repositoryId": "e0c6d077-6f9b-50f9-946d-d5ae141d3cce",
         "repositoryName": "Primary ReFS",
-        "jobType": "HyperVBackup"
+        "jobType": "VSphereBackup"
       },
       {
         "id": "8cf60dbd-5fe5-5a82-9dac-8dd87caa0caf",
@@ -259,12 +259,12 @@
         "id": "4e33ef20-dca4-56df-a08e-6f8d690885cc",
         "jobId": "8289eb65-8296-5e46-be09-f357e9228d30",
         "name": "Ticketing system",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-07-02T11:40:00Z",
         "repositoryId": "e0c6d077-6f9b-50f9-946d-d5ae141d3cce",
         "repositoryName": "Primary ReFS",
-        "jobType": "HyperVBackup"
+        "jobType": "VSphereBackup"
       },
       {
         "id": "9cb50abb-1f7b-5703-bfe5-19b23724ea8d",
@@ -314,12 +314,12 @@
         "id": "76e0e025-6dcf-51be-a537-865a5db732fb",
         "jobId": "d5bbd59a-88d8-52b9-baba-76087e7dda37",
         "name": "QA environment",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-07-02T11:40:00Z",
         "repositoryId": "e0c6d077-6f9b-50f9-946d-d5ae141d3cce",
         "repositoryName": "Primary ReFS",
-        "jobType": "HyperVBackup"
+        "jobType": "VSphereBackup"
       },
       {
         "id": "ccd09aa2-5c34-55f3-9fd4-c02af2107116",
@@ -369,12 +369,12 @@
         "id": "83e01981-4451-5c85-b552-39bc792c1743",
         "jobId": "fe88c331-3641-5c41-9d73-2d79e1a4f626",
         "name": "DNS and DHCP",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-07-02T11:40:00Z",
         "repositoryId": "e0c6d077-6f9b-50f9-946d-d5ae141d3cce",
         "repositoryName": "Primary ReFS",
-        "jobType": "HyperVBackup"
+        "jobType": "VSphereBackup"
       },
       {
         "id": "c8fce235-3b20-55ea-b8ba-692c032d6a4f",
@@ -424,12 +424,12 @@
         "id": "abbc9d90-a9fc-56ca-b675-e2211c53acd2",
         "jobId": "3e007824-f48b-585c-b5fa-0bdeaffe064e",
         "name": "Call center",
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "creationTime": "2026-07-02T11:40:00Z",
         "repositoryId": "e0c6d077-6f9b-50f9-946d-d5ae141d3cce",
         "repositoryName": "Primary ReFS",
-        "jobType": "HyperVBackup"
+        "jobType": "VSphereBackup"
       },
       {
         "id": "13e451e2-10d2-5f10-8d85-ed1d9760c38c",

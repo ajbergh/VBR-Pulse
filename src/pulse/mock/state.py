@@ -48,7 +48,6 @@ _READ_INFRA = {
 }
 _JOB_TRIGGERS = {"StartJob", "StopJob", "RetryJob"}
 _QUICK_BACKUP = {
-    "StartHyperVQuickBackupJob",
     "StartAgentQuickBackupJob",
     "StartVSphereQuickBackupJob",
 }
@@ -71,7 +70,6 @@ _SESSION_TYPE = {"VSphereReplica": "ReplicaJob", "BackupCopy": "BackupCopyJob"}
 _PLATFORM = {
     "VSphereBackup": "VMware",
     "VSphereReplica": "VMware",
-    "HyperVBackup": "HyperV",
     "WindowsAgentBackup": "WindowsPhysical",
     "LinuxAgentBackup": "LinuxPhysical",
 }
@@ -443,9 +441,6 @@ class MockVbr:
             backup_id=backup_id,
         )
 
-    def start_hyperv_quick_backup(self, req: Request) -> dict[str, Any]:
-        return self.session_body(self._quick_backup(req, "HyperVBackup", "HyperV"))
-
     def start_vsphere_quick_backup(self, req: Request) -> dict[str, Any]:
         return self.session_body(self._quick_backup(req, "VSphereBackup", "VMware"))
 
@@ -771,7 +766,6 @@ class MockVbr:
             "StartJob": (201, self.start_job),
             "StopJob": (201, self.stop_job),
             "RetryJob": (201, self.retry_job),
-            "StartHyperVQuickBackupJob": (201, self.start_hyperv_quick_backup),
             "StartVSphereQuickBackupJob": (201, self.start_vsphere_quick_backup),
             "StartAgentQuickBackupJob": (201, self.start_agent_quick_backup),
             "GetSession": (200, self.get_session),

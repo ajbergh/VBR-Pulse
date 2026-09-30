@@ -207,7 +207,7 @@
           "isCanceled": false
         },
         "usn": 90007,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -226,7 +226,7 @@
           "isCanceled": false
         },
         "usn": 90005,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -245,7 +245,7 @@
           "isCanceled": false
         },
         "usn": 90077,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -264,7 +264,7 @@
           "isCanceled": false
         },
         "usn": 90047,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -416,7 +416,7 @@
           "isCanceled": false
         },
         "usn": 90067,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -454,7 +454,7 @@
           "isCanceled": false
         },
         "usn": 90037,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -587,7 +587,7 @@
           "isCanceled": false
         },
         "usn": 90057,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -611,12 +611,12 @@
         "initiatedBy": "Scheduler"
       },
       {
-        "id": "3050abc2-c3f1-5c40-8b5a-f22d08f9a207",
-        "name": "Hyper-V lab hosts",
-        "jobId": "eb8e80e7-ab39-53a7-9cb6-4364334f0bae",
+        "id": "5cb5b268-2de3-5411-842f-497f3489f44e",
+        "name": "ESXi lab VMs",
+        "jobId": "ece0ca6f-ef44-5a29-91c9-6c4386a81451",
         "sessionType": "BackupJob",
         "creationTime": "2026-09-30T00:40:00Z",
-        "endTime": "2026-09-30T00:52:51Z",
+        "endTime": "2026-09-30T00:47:36Z",
         "state": "Stopped",
         "progressPercent": 100,
         "result": {
@@ -625,7 +625,7 @@
           "isCanceled": false
         },
         "usn": 90029,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -967,7 +967,7 @@
           "isCanceled": false
         },
         "usn": 90008,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -986,7 +986,7 @@
           "isCanceled": false
         },
         "usn": 90006,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -1005,7 +1005,7 @@
           "isCanceled": false
         },
         "usn": 90078,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -1024,7 +1024,7 @@
           "isCanceled": false
         },
         "usn": 90048,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -1195,7 +1195,7 @@
           "isCanceled": false
         },
         "usn": 90068,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -1233,7 +1233,7 @@
           "isCanceled": false
         },
         "usn": 90038,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -1366,7 +1366,7 @@
           "isCanceled": false
         },
         "usn": 90058,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },
@@ -1390,12 +1390,12 @@
         "initiatedBy": "Scheduler"
       },
       {
-        "id": "ec17103a-135b-5d8f-a12b-a6723cfb25c7",
-        "name": "Hyper-V lab hosts",
-        "jobId": "eb8e80e7-ab39-53a7-9cb6-4364334f0bae",
+        "id": "1140215c-02dc-53a6-b42a-efa9477d980c",
+        "name": "ESXi lab VMs",
+        "jobId": "ece0ca6f-ef44-5a29-91c9-6c4386a81451",
         "sessionType": "BackupJob",
         "creationTime": "2026-09-29T00:40:00Z",
-        "endTime": "2026-09-29T00:52:51Z",
+        "endTime": "2026-09-29T00:47:36Z",
         "state": "Stopped",
         "progressPercent": 100,
         "result": {
@@ -1404,7 +1404,7 @@
           "isCanceled": false
         },
         "usn": 90030,
-        "platformName": "HyperV",
+        "platformName": "VMware",
         "platformId": "00000000-0000-0000-0000-000000000000",
         "initiatedBy": "Scheduler"
       },

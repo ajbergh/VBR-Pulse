@@ -4,6 +4,8 @@
 Demo app for the Veeam Backup & Replication 13.1 REST API. Plan: docs/VBR_Pulse_Implementation_Plan.md
 (referred to as "PLAN"). Source of truth for API shapes: openapi/vbr-1.3-rev2.json. Never guess paths
 or bodies.
+The lab is VMware-only: no Hyper-V code paths, fixtures or jobs (overrides PLAN §7.5.5's Hyper-V
+Quick Backup). Quick Backup supports vSphere and agent-managed machines.
 
 ## Hard rules
 - Every VBR request goes through src/pulse/vbr/client.py. No ad-hoc httpx calls.
@@ -47,7 +49,7 @@ or bodies.
 
 ## Spec quirks worth knowing
 - Agent Quick Backup (`StartAgentQuickBackupJob`) returns only `{jobId}`, not a session: find
-  the session with `GetAllSessions?jobIdFilter=…`. Hyper-V/vSphere variants return a session.
+  the session with `GetAllSessions?jobIdFilter=…`. The vSphere variant returns a session.
 - `grant_type` enum in TokenLoginSpec says `Password`/`Refresh_token`; the server and the
   description use lowercase `password`/`refresh_token`. We send lowercase.
 - Polymorphic bodies (Quick Backup, malware scan) use base `oneOf` + subtype `allOf` cycles;
