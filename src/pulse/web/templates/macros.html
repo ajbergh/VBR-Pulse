@@ -1,0 +1,32 @@
+{% macro icon(name, cls="") -%}
+<svg class="icon {{ cls }}" aria-hidden="true" focusable="false"><use href="#i-{{ name }}"></use></svg>
+{%- endmacro %}
+
+{% macro job_status(job, snapshot=None, stopping=False) -%}
+{%- if stopping or (snapshot and not snapshot.ended and snapshot.state == "Stopping") -%}
+  <span class="status status-running">{{ icon("running") }}Stopping…</span>
+{%- elif snapshot and not snapshot.ended -%}
+  {%- if snapshot.state == "Starting" -%}
+  <span class="status status-running">{{ icon("running") }}Starting</span>
+  {%- else -%}
+  <span class="status status-running">{{ icon("running") }}Running <span class="num">{{ snapshot.progress }} %</span></span>
+  {%- endif -%}
+{%- else -%}
+  {%- set s = JOB_STATUS.get(job.status, ("idle", job.status)) -%}
+  <span class="status status-{{ s[0] }}">{{ icon(s[0]) }}{{ s[1] }}{% if job.status == "Running" and job.progressPercent %} <span class="num">{{ job.progressPercent }} %</span>{% endif %}</span>
+{%- endif -%}
+{%- endmacro %}
+
+{% macro result(value) -%}
+{%- set r = RESULT.get(value or "None", RESULT["None"]) -%}
+<span class="result result-{{ r[2] }}">{{ icon(r[0]) }}{{ r[1] }}</span>
+{%- endmacro %}
+
+{% macro result_chip(value) -%}
+{%- set r = RESULT.get(value or "None", RESULT["None"]) -%}
+<span class="chip chip-{{ r[2] }}">{{ icon(r[0]) }}{{ r[1] }}</span>
+{%- endmacro %}
+
+{% macro method_pill(method) -%}
+<span class="method method-{{ method|lower }}">{{ method }}</span>
+{%- endmacro %}

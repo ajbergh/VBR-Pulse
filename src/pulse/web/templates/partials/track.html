@@ -1,0 +1,11 @@
+{#- Wrapper: while the session runs, it listens on /events/session/{id}; each update
+    replaces the inner markup. The fill keeps a stable id so htmx's settle step animates
+    its width (PLAN §7.5.3). -#}
+<div class="track-wrap" id="trackwrap-{{ snap.id }}"
+     {% if not snap.ended %}hx-ext="sse" sse-connect="/events/session/{{ snap.id }}" sse-swap="update" hx-swap="innerHTML" sse-close="done"{% endif %}
+     {% if focus %}data-focus{% endif %}>
+  {% include "partials/track_inner.html" %}
+</div>
+{%- if oob_job is defined and oob_job %}
+{%- with job=oob_job, snapshot=oob_snapshot, oob=True %}{% include "partials/job_row.html" %}{% endwith %}
+{%- endif %}

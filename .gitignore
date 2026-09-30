@@ -7,11 +7,11 @@ __pycache__/
 dist/
 build/
 *.egg-info/
+requirements-audit.txt
 
 # Never commit real configuration or certificates
 .env
 certs/
 
-# Playwright artefacts
+# Playwright screenshots and reports
 test-results/
-tests/e2e/__screenshots__/actual/

@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block page_title %}Repositories{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Repositories</h1>
+  {% if data %}
+  <form class="filters" hx-get="/ui/repositories/cards" hx-target="#repo-cards" hx-trigger="change">
+    <label for="repo-sort">Sort by</label>
+    <select id="repo-sort" name="sort">
+      {% for key, (_c, _a, label) in sorts.items() %}
+      <option value="{{ key }}" {% if data.sort == key %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </form>
+  {% endif %}
+</div>
+<p class="page-note muted">Sorting happens on the server: watch <code>orderColumn</code> and <code>orderAsc</code> in the inspector.</p>
+<div id="repo-cards" class="cards" aria-live="polite">{% include "partials/repo_cards.html" %}</div>
+{% endblock %}

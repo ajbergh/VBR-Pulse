@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% from "macros.html" import icon %}
+{% block page_title %}Incident response{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Incident response</h1>
+  <button type="button" class="btn-text" hx-post="/ui/incident/reset">Start over</button>
+</div>
+<p class="page-note muted">New in 13.1: respond to a malware event through the REST API. Each step unlocks when the previous session succeeds. Signed in as {{ conn.username }}{% if role %} ({{ role }}){% endif %}.</p>
+
+{% if events is not none %}
+<section class="events" aria-labelledby="events-title">
+  <h2 id="events-title" class="section-title">Malware events</h2>
+  {% if events %}
+  <form class="event-list" hx-post="/ui/incident/event" hx-target="#stepper" hx-swap="outerHTML">
+    {% for e in events %}
+    <label class="event-choice">
+      <input type="radio" name="event_id" value="{{ e.id }}" {% if incident.event and incident.event.id == e.id %}checked{% endif %}>
+      <span class="event-text">
+        <span><span class="status status-warn">{{ icon("warning") }}{{ e.severity }}</span> <strong>{{ e.machine.displayName }}</strong></span>
+        <span>{{ e.details }}</span>
+        <span class="muted">Detected {{ e.detectionTimeUtc|clock }} · {{ e.source }} · {{ e.engine }}</span>
+      </span>
+    </label>
+    {% endfor %}
+    <button class="btn-secondary" type="submit">Respond to this event</button>
+  </form>
+  {% else %}
+  <p class="empty">No malware events. {% if conn.mode == "mock" %}Pick the incident scenario (press <kbd>S</kbd>).{% else %}In the lab, seed one from Settings.{% endif %}</p>
+  {% endif %}
+</section>
+{% endif %}
+
+{% include "partials/stepper.html" %}
+{% endblock %}

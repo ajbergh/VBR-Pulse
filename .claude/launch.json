@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "pulse-mock",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "uv", "run", "pulse", "serve", "--mock", "--port", "8000"],
+      "port": 8000
+    }
+  ]
+}

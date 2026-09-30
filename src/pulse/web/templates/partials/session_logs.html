@@ -1,0 +1,11 @@
+<div class="logs-panel">
+  {% if records %}
+  <ol class="log-lines" tabindex="0" aria-label="Session log">
+    {% for line in records %}
+    <li class="log-{{ line.status|lower }}"><span class="mono">{{ line.startTime|clock_seconds }}</span> {{ line.title }}</li>
+    {% endfor %}
+  </ol>
+  {% else %}
+  <p class="muted">This session has no log lines.</p>
+  {% endif %}
+</div>

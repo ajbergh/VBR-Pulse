@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% from "macros.html" import icon %}
+{% block title %}{% block page_title %}{% endblock %} · VBR Pulse{% endblock %}
+{% block body_class %}app{% endblock %}
+{% block body_attrs %}hx-ext="sse" sse-connect="/events/inspector"{% endblock %}
+{% block body %}
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar">
+  <a class="brand" href="/jobs"><span class="brand-mark" aria-hidden="true"></span>VBR Pulse</a>
+  <p class="server-id">
+    <span class="server-name">{{ conn.server_name }}</span>
+    {% if conn.server_info %}<span class="sep" aria-hidden="true">·</span><span>{{ conn.server_info.buildVersion }}</span>{% endif %}
+    <span class="sep" aria-hidden="true">·</span><span class="chip chip-api">API {{ api_version }}</span>
+  </p>
+  <span class="mode-badge mode-{{ conn.mode }}" title="{{ 'Mock data, no server involved' if conn.mode == 'mock' else 'Connected to a live server' }}">{{ "Mock" if conn.mode == "mock" else "Live" }}</span>
+  {% if scenario %}
+  <button type="button" class="scenario-chip" data-open="scenario-picker" aria-haspopup="dialog">Scenario: {{ scenario.title }}</button>
+  {% endif %}
+  <form class="account" hx-post="/ui/switch-profile" hx-trigger="change">
+    <label for="account-switch" class="sr-only">Signed-in account</label>
+    <select id="account-switch" name="profile">
+      {% for p in app.profiles(conn.mode) %}
+      <option value="{{ p.name }}" {% if p.name == conn.profile.name %}selected{% endif %}>{{ p.username }}{% if p.role %} · {{ p.role }}{% endif %}</option>
+      {% endfor %}
+    </select>
+  </form>
+  <div id="token-ring" class="token-slot" sse-swap="token">{% include "partials/token_ring.html" %}</div>
+  <form method="post" action="/signout"><button class="btn-text" type="submit">Disconnect</button></form>
+</header>
+
+<div class="shell">
+  <nav class="rail" aria-label="Main">
+    <ul>
+      {% for key, href, label, ic in [("1", "/jobs", "Jobs", "jobs"), ("2", "/repositories", "Repositories", "repos"), ("3", "/incident", "Incident", "incident"), ("4", "/sessions", "Sessions", "sessions")] %}
+      <li><a href="{{ href }}" data-key="{{ key }}" title="{{ label }} ({{ key }})" {% if active == href[1:] %}aria-current="page"{% endif %}>{{ icon(ic) }}<span class="rail-label">{{ label }}</span></a></li>
+      {% endfor %}
+    </ul>
+    <ul class="rail-bottom">
+      <li><a href="/settings" title="Settings" {% if active == "settings" %}aria-current="page"{% endif %}>{{ icon("settings") }}<span class="rail-label">Settings</span></a></li>
+    </ul>
+  </nav>
+
+  <main id="main" class="content" tabindex="-1">
+    <div id="callouts">{% if problem %}{% include "partials/callout.html" with context %}{% endif %}</div>
+    {% block content %}{% endblock %}
+  </main>
+
+  <aside id="inspector" class="inspector" aria-labelledby="inspector-title">
+    <div class="inspector-head">
+      <h2 id="inspector-title" class="inspector-title">API inspector</h2>
+      <button type="button" class="icon-btn" data-action="inspector-wide" aria-label="Widen the inspector">{{ icon("expand") }}</button>
+      <button type="button" class="icon-btn" data-action="inspector-toggle" aria-label="Collapse the inspector (I)" aria-controls="inspector-rows" aria-expanded="true">{{ icon("panel") }}</button>
+    </div>
+    <ol id="inspector-rows" class="inspector-rows" sse-swap="row" hx-swap="afterbegin">
+      {% for row in rows %}{% include "partials/inspector_row.html" %}{% endfor %}
+    </ol>
+    <div class="inspector-foot">
+      <button type="button" class="btn-text" hx-post="/ui/inspector/clear" hx-target="#inspector-rows" hx-swap="innerHTML">Clear</button>
+      <span class="muted">Secrets are redacted before anything is shown.</span>
+    </div>
+  </aside>
+</div>
+
+<div id="shortcuts" class="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+  <div class="overlay-card">
+    <h2 id="shortcuts-title">Keyboard shortcuts</h2>
+    <table class="table shortcuts-table">
+      <tbody>
+        <tr><td><kbd>P</kbd></td><td>Presenter mode</td></tr>
+        <tr><td><kbd>I</kbd></td><td>Toggle inspector</td></tr>
+        <tr><td><kbd>1</kbd>–<kbd>4</kbd></td><td>Jobs, Repositories, Incident, Sessions</td></tr>
+        <tr><td><kbd>/</kbd></td><td>Focus the job filter</td></tr>
+        <tr><td><kbd>S</kbd></td><td>Scenario picker (mock mode)</td></tr>
+        <tr><td><kbd>?</kbd></td><td>This list</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Close panel or overlay</td></tr>
+      </tbody>
+    </table>
+    <button type="button" class="btn-secondary" data-close>Close</button>
+  </div>
+</div>
+
+{% if scenario %}
+<div id="scenario-picker" class="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="scenario-title">
+  <form class="overlay-card" hx-post="/ui/settings/scenario" hx-swap="none" data-close-on-submit>
+    <h2 id="scenario-title">Mock scenario</h2>
+    <fieldset class="choices">
+      <legend class="sr-only">Scenario</legend>
+      {% for s in app.mock.scenarios.values() %}
+      <label class="choice"><input type="radio" name="scenario" value="{{ s.key }}" {% if s.key == scenario.key %}checked{% endif %}><span><strong>{{ s.title }}</strong><span class="muted">{{ s.description }}</span></span></label>
+      {% endfor %}
+    </fieldset>
+    <div class="actions"><button class="btn-primary" type="submit">Use scenario</button><button type="button" class="btn-text" data-close>Cancel</button></div>
+  </form>
+</div>
+{% endif %}
+{% endblock %}

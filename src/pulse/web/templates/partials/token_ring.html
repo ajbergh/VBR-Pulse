@@ -1,0 +1,14 @@
+{%- if token -%}
+<div class="token-ring" id="token-ring-inner"
+     data-expires-at="{{ token.expires_at_ms }}" data-refresh-at="{{ token.refresh_at_ms }}"
+     data-lifetime="{{ token.lifetime }}" role="timer" aria-live="off"
+     title="Access token · {{ '%d:%02d' % (token.seconds_left // 60, token.seconds_left % 60) }} left · refreshes automatically at {{ '%d:%02d' % ((token.seconds_left - token.refresh_in) // 60, (token.seconds_left - token.refresh_in) % 60) }}">
+  <svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" focusable="false">
+    <circle class="ring-track" cx="14" cy="14" r="11"></circle>
+    <circle class="ring-fill" cx="14" cy="14" r="11" pathLength="100" stroke-dasharray="100" stroke-dashoffset="{{ 100 - (100 * token.seconds_left / token.lifetime)|round(1) }}"></circle>
+  </svg>
+  <span class="ring-label"><span class="sr-only">Access token expires in </span><span data-ring-text>{{ '%d:%02d' % (token.seconds_left // 60, token.seconds_left % 60) }}</span></span>
+</div>
+{%- else -%}
+<div class="token-ring token-none"><span class="ring-label muted">No token</span></div>
+{%- endif -%}

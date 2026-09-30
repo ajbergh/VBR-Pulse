@@ -1,0 +1,37 @@
+{%- from "macros.html" import icon, job_status, result -%}
+<div class="panel-inner" data-panel-open>
+  <div class="panel-head">
+    <h2 id="job-panel-title">{{ job.name if job else "Job not found" }}</h2>
+    <button type="button" class="icon-btn" data-action="close-panel" aria-label="Close the job panel (Esc)">{{ icon("close") }}</button>
+  </div>
+  {% if job %}
+  <dl class="facts">
+    <div><dt>Status</dt><dd>{{ job_status(job) }}</dd></div>
+    <div><dt>Type</dt><dd>{{ JOB_TYPES.get(job.type, job.type) }}</dd></div>
+    <div><dt>Last result</dt><dd>{{ result(job.lastResult) }}</dd></div>
+    <div><dt>Repository</dt><dd>{{ job.repositoryName or "–" }}</dd></div>
+    <div><dt>Objects</dt><dd>{{ job.objectsCount }}</dd></div>
+    <div><dt>Job ID</dt><dd><code>{{ job.id }}</code></dd></div>
+  </dl>
+  <h3>Recent sessions</h3>
+  {% if problem %}{% set callout = problem %}{% include "partials/callout.html" %}{% endif %}
+  {% if sessions %}
+  <table class="table compact">
+    <thead><tr><th scope="col">Started</th><th scope="col">Result</th><th scope="col">Duration</th></tr></thead>
+    <tbody>
+      {% for s in sessions %}
+      <tr>
+        <td class="num">{{ s.creationTime|clock }}</td>
+        <td>{{ result(s.result.result) if s.state == "Stopped" else s.state }}</td>
+        <td class="num">{{ s.creationTime|duration(s.endTime) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% elif not problem %}
+  <p class="muted">No sessions yet.</p>
+  {% endif %}
+  {% else %}
+  <p>That job no longer exists. The list has been refreshed.</p>
+  {% endif %}
+</div>

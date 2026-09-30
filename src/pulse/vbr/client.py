@@ -216,6 +216,11 @@ class VbrClient:
         async with self._token_lock:
             await self._refresh_locked()
 
+    async def refresh_if_due(self) -> None:
+        """Refresh now if the proactive-refresh point has passed (keeps an idle UI signed in)."""
+        if self._tokens is not None:
+            await self._ensure_token()
+
     async def logout(self) -> None:
         """`Logout`, then forget the tokens. Never raises: used on shutdown."""
         tokens, self._tokens = self._tokens, None

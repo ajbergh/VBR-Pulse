@@ -321,25 +321,31 @@ def malware_events() -> dict[str, Any]:
     return {"operationId": "ViewSuspiciousActivityEvents", "body": page([event])}
 
 
-def incident_objects() -> dict[str, Any]:
-    """Machine descriptions the incident flow sends to the Quick Backup operations."""
-    return {
-        "hyperV": {
-            "schema": "HyperVObjectModel",
-            "body": {
-                "platform": "HyperV",
-                "hostName": "hv01.lab.local",
-                "name": "FS-02",
-                "type": "VirtualMachine",
-                "objectId": FS02["uuid"],
-                "urn": f"HyperV:hv01.lab.local:{FS02['uuid']}",
-            },
-        },
-        "backupObjectPair": {
-            "schema": "BackupObjectPair",
-            "body": {"backupId": FILE_BACKUP, "backupObjectId": backup_object_id("FS-02")},
-        },
+def backup_objects() -> dict[str, Any]:
+    """Hyper-V backup objects: what the incident flow looks up from a malware event."""
+    vms = {
+        "FS-01": "0c3e8f2a-6d41-4b7e-9a15-3f2d7c8b9e01",
+        "FS-02": FS02["uuid"],
+        "FS-03": "7e2d1c4b-8a95-4f36-b0c7-1d2e3f4a5b03",
     }
+    data = [
+        {
+            "id": backup_object_id(vm),
+            "name": vm,
+            "type": "VM",
+            "platformName": "HyperV",
+            "platformId": ZERO_UUID,
+            "restorePointsCount": 3,
+            "lastRunFailed": False,
+            "backupId": FILE_BACKUP,
+            "size": 214_748_364_800,
+            "objectId": object_id,
+            "hvType": "VirtualMachine",
+            "path": "hv01.lab.local\\" + vm,
+        }
+        for vm, object_id in vms.items()
+    ]
+    return {"operationId": "GetAllBackupObjects", "body": page(data)}
 
 
 def authorization_events() -> dict[str, Any]:
@@ -418,7 +424,7 @@ def main() -> None:
     write("backups.json", backups())
     write("restore_points.json", restore_points())
     write("malware_events.json", malware_events())
-    write("incident_objects.json", incident_objects())
+    write("backup_objects.json", backup_objects())
     write("authorization_events.json", authorization_events())
     srv = server()
     write("server_info.json", srv["info"])

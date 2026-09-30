@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Sign in · VBR Pulse{% endblock %}
+{% block body_class %}signin-page{% endblock %}
+{% block body %}
+<main class="signin">
+  <section class="card signin-card" aria-labelledby="signin-title">
+    <p class="brand"><span class="brand-mark" aria-hidden="true"></span>VBR Pulse</p>
+    <h1 id="signin-title">Connect to a backup server</h1>
+    {% if notice %}<p class="callout callout-info" role="status">{{ notice }}</p>{% endif %}
+    {% if error %}<p class="callout callout-error" role="alert">{{ error }}</p>{% endif %}
+    {% if profile_error %}<p class="callout callout-info">Live profiles aren't configured: {{ profile_error }} Mock data still works.</p>{% endif %}
+
+    <form method="post" action="/signin" class="form">
+      <div class="field">
+        <label for="server">Server</label>
+        <input id="server" name="server" type="url" value="{{ server_url }}" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="field">
+        <label for="profile">Account</label>
+        <select id="profile" name="profile">
+          {% set profiles = live_profiles or mock_profiles %}
+          {% for p in profiles %}
+          <option value="{{ p.name }}">{{ p.username }}{% if p.role %} · {{ p.role }}{% endif %}</option>
+          {% endfor %}
+        </select>
+        <p class="hint">Accounts are profiles from the server's configuration. Pulse never asks for a password.</p>
+      </div>
+      <p class="field-static"><span class="label">API</span> {{ api_version }} (pinned)</p>
+      <div class="actions">
+        {% if mode == "mock" %}
+        <button class="btn-primary" type="submit" name="mode" value="mock">Connect to mock data</button>
+        {% if live_profiles %}<button class="btn-text" type="submit" name="mode" value="live">Connect to the live server instead</button>{% endif %}
+        {% else %}
+        <button class="btn-primary" type="submit" name="mode" value="live" {% if not live_profiles %}disabled{% endif %}>Connect</button>
+        <button class="btn-text" type="submit" name="mode" value="mock">Use mock data instead</button>
+        {% endif %}
+      </div>
+    </form>
+    <p class="fine-print">Credentials stay on this machine. The browser only receives a session cookie.</p>
+  </section>
+</main>
+{% endblock %}

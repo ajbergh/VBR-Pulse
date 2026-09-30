@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install
+        run: uv sync --frozen
+      - name: Lint
+        run: |
+          uv run ruff check src tests scripts
+          uv run ruff format --check src tests scripts
+      - name: Type-check
+        run: uv run mypy
+      - name: Unit, contract and integration tests
+        run: uv run pytest
+      - name: Dependency audit
+        run: |
+          uv export --frozen --no-dev --no-hashes --no-emit-project > requirements-audit.txt
+          uvx pip-audit --strict -r requirements-audit.txt
+
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install
+        run: |
+          uv sync --frozen
+          uv run playwright install --with-deps chromium
+      - name: Playwright against mock mode (screenshots, axe-core, keyboard)
+        run: uv run pytest -m e2e
+      - name: Keep the screenshots for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: test-results/screenshots/

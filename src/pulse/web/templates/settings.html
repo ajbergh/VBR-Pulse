@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block page_title %}Settings{% endblock %}
+{% block content %}
+<div class="page-head"><h1>Settings</h1></div>
+<div class="settings">
+  <section class="card" aria-labelledby="mode-title">
+    <h2 id="mode-title" class="section-title">Mode</h2>
+    <p>Connected to <strong>{{ conn.server_name }}</strong> in <strong>{{ "mock" if conn.mode == "mock" else "live" }}</strong> mode as {{ conn.username }}.</p>
+    <form method="post" action="/signout"><button class="btn-secondary" type="submit">Disconnect and choose {{ "live" if conn.mode == "mock" else "mock" }} mode</button></form>
+  </section>
+
+  {% if conn.mode == "mock" %}
+  <section class="card" aria-labelledby="scenario-settings-title" id="scenario">
+    <h2 id="scenario-settings-title" class="section-title">Mock scenario</h2>
+    <form hx-post="/ui/settings/scenario" hx-trigger="change" hx-swap="none">
+      <fieldset class="choices">
+        <legend class="sr-only">Scenario</legend>
+        {% for s in scenarios %}
+        <label class="choice"><input type="radio" name="scenario" value="{{ s.key }}" {% if s.key == current_scenario %}checked{% endif %}><span><strong>{{ s.title }}</strong><span class="muted">{{ s.description }}</span></span></label>
+        {% endfor %}
+      </fieldset>
+    </form>
+  </section>
+  {% endif %}
+
+  <section class="card" aria-labelledby="display-title">
+    <h2 id="display-title" class="section-title">Display</h2>
+    <form hx-post="/ui/settings/poll" hx-trigger="change" hx-swap="none" class="field-row">
+      <label for="poll">Polling interval</label>
+      <select id="poll" name="seconds">
+        {% for s in poll_choices %}<option value="{{ s }}" {% if s == poll_seconds %}selected{% endif %}>Every {{ s }} s</option>{% endfor %}
+      </select>
+    </form>
+    <label class="toggle"><input type="checkbox" data-pref="presenter"> Presenter mode <kbd>P</kbd></label>
+    <label class="toggle"><input type="checkbox" data-pref="headers" data-pref-default="true"> Show request headers in the inspector</label>
+  </section>
+
+  <section class="card" aria-labelledby="lab-title">
+    <h2 id="lab-title" class="section-title">Lab-only actions</h2>
+    <p class="muted">Never shown during the story itself. Needs an account that can create malware events (Incident API Operator).</p>
+    <button class="btn-secondary" type="button" hx-post="/ui/settings/seed-event" hx-swap="none">Seed a malware event for FS-02</button>
+  </section>
+
+  <section class="card" aria-labelledby="about-title">
+    <h2 id="about-title" class="section-title">About</h2>
+    <dl class="facts">
+      <div><dt>API revision</dt><dd>{{ api_version }}</dd></div>
+      <div><dt>Server build</dt><dd>{{ conn.server_info.buildVersion if conn.server_info else "Not visible to this account" }}</dd></div>
+      <div><dt>Reference</dt><dd><a href="https://helpcenter.veeam.com/references/vbr/13/rest/1.3-rev2/tag/SectionOverview" target="_blank" rel="noopener noreferrer">REST API 1.3-rev2 reference</a></dd></div>
+      <div><dt>What's new</dt><dd><a href="https://helpcenter.veeam.com/docs/vbr/wn/rest_api.html" target="_blank" rel="noopener noreferrer">What's New in V13.1 — REST API</a></dd></div>
+    </dl>
+  </section>
+</div>
+{% endblock %}

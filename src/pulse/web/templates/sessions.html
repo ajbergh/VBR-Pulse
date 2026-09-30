@@ -1,0 +1,6 @@
+{% extends "layout.html" %}
+{% block page_title %}Sessions{% endblock %}
+{% block content %}
+<div class="page-head"><h1>Sessions</h1><p class="muted">Newest first, {{ 50 }} per page.</p></div>
+<div id="sessions-table">{% include "partials/sessions_table.html" %}</div>
+{% endblock %}

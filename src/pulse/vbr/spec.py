@@ -20,7 +20,14 @@ from referencing.jsonschema import DRAFT7
 
 from pulse.vbr.errors import VbrRequestInvalid
 
-SPEC_PATH = Path(__file__).resolve().parents[3] / "openapi" / "vbr-1.3-rev2.json"
+_SPEC_NAME = "vbr-1.3-rev2.json"
+# Installed wheels carry the spec inside the package; a source checkout reads openapi/.
+_PACKAGED = Path(__file__).resolve().parents[1] / "openapi" / _SPEC_NAME
+SPEC_PATH = (
+    _PACKAGED
+    if _PACKAGED.exists()
+    else (Path(__file__).resolve().parents[3] / "openapi" / _SPEC_NAME)
+)
 _SPEC_URI = "urn:vbr-pulse:openapi"
 
 

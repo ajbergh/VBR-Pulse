@@ -34,6 +34,8 @@ class Settings(BaseSettings):
     poll_seconds: int = Field(default=5, alias="PULSE_POLL_SECONDS")
     mock: bool = Field(default=False, alias="MOCK")
     mock_scenario: str = Field(default="happy", alias="MOCK_SCENARIO")
+    host: str = Field(default="127.0.0.1", alias="PULSE_HOST")
+    port: int = Field(default=8000, alias="PULSE_PORT")
 
     @field_validator("ca_bundle", mode="before")
     @classmethod
@@ -60,7 +62,12 @@ class Settings(BaseSettings):
         username = env.get(f"{key}_USER")
         if not username:
             raise ProfileError(f"Profile '{name}' has no {key}_USER setting.")
-        return Profile(name=name.lower(), username=username, secret_ref=env.get(f"{key}_SECRET"))
+        return Profile(
+            name=name.lower(),
+            username=username,
+            secret_ref=env.get(f"{key}_SECRET"),
+            role=env.get(f"{key}_ROLE") or None,
+        )
 
     def profiles(self) -> list[Profile]:
         return [self.profile(name) for name in self.profile_names]
@@ -77,9 +84,21 @@ class Profile:
     name: str
     username: str
     secret_ref: str | None
+    role: str | None = None  # shown in the 403 message; VBR's 403 body doesn't name it
+    mock: bool = False
 
     def credentials(self) -> Credentials:
+        if self.mock:
+            return Credentials(username=self.username, password=SecretStr("mock"))
         return Credentials(username=self.username, password=resolve_secret(self))
+
+
+# Mock mode always offers the three demo accounts the mock server knows (PLAN §5.4).
+MOCK_PROFILES = (
+    Profile("ops", "svc-pulse-ops", None, "Backup Operator", mock=True),
+    Profile("ir", "svc-pulse-ir", None, "Incident API Operator", mock=True),
+    Profile("view", "svc-pulse-view", None, "Backup Viewer", mock=True),
+)
 
 
 def _environment(env_file: Path) -> dict[str, str]:

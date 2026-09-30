@@ -1,0 +1,16 @@
+{%- from "macros.html" import icon -%}
+{%- set c = callout if callout is defined and callout else problem -%}
+<div class="callout callout-{{ c.kind }}" role="alert">
+  {{ icon("lock" if c.kind == "forbidden" else "failed") }}
+  <div>
+    <p class="callout-title">{{ c.title }}</p>
+    <p>{{ c.message }}{% if c.suggest_profile %} Switch to the {{ profile_word.get(c.suggest_profile, c.suggest_profile) }} profile.{% endif %}</p>
+    {% if c.code %}<p class="muted">errorCode: <code>{{ c.code }}</code></p>{% endif %}
+  </div>
+  {% if c.suggest_profile %}
+  <form hx-post="/ui/switch-profile" class="callout-action">
+    <input type="hidden" name="profile" value="{{ c.suggest_profile }}">
+    <button class="btn-secondary" type="submit">Switch to {{ profile_word.get(c.suggest_profile, c.suggest_profile) }}</button>
+  </form>
+  {% endif %}
+</div>

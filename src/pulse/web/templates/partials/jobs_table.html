@@ -1,0 +1,37 @@
+{%- from "macros.html" import icon -%}
+{%- if table -%}
+{%- if table.jobs -%}
+<table class="table jobs-table">
+  <caption class="sr-only">Jobs, {{ table.first }} to {{ table.last }} of {{ table.total }}</caption>
+  <thead>
+    <tr>
+      <th scope="col">Status</th><th scope="col">Name</th><th scope="col">Type</th>
+      <th scope="col">Last result</th><th scope="col">Last run</th><th scope="col">Next run</th>
+      <th scope="col"><span class="sr-only">Actions</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    {%- for job in table.jobs %}
+    {%- set snapshot = live.get(job.id) if live is defined and live else none -%}
+    {% include "partials/job_row.html" %}
+    {%- endfor %}
+  </tbody>
+</table>
+{%- else -%}
+<div class="empty">
+  {%- if table.name_filter or table.job_type %}
+  <p>No jobs match {% if table.name_filter %}'{{ table.name_filter }}'{% else %}this type{% endif %}.{% if all_total %} Clear the filter to see all {{ all_total }} jobs.{% endif %}</p>
+  <button type="button" class="btn-secondary" data-clear-filters>Clear the filter</button>
+  {%- else %}
+  <p>This server has no jobs yet.</p>
+  {%- endif %}
+</div>
+{%- endif -%}
+<nav class="pager" aria-label="Job pages">
+  <span class="pager-text">Showing {{ table.first }}–{{ table.last }} of {{ table.total }}</span>
+  <button type="button" class="icon-btn" aria-label="Previous page" {% if table.page <= 1 %}disabled{% endif %}
+          hx-get="/ui/jobs/table?q={{ table.q|urlencode }}&type={{ table.job_type|urlencode }}&page={{ table.page - 1 }}" hx-target="#jobs-table">{{ icon("prev") }}</button>
+  <button type="button" class="icon-btn" aria-label="Next page" {% if table.page >= table.pages %}disabled{% endif %}
+          hx-get="/ui/jobs/table?q={{ table.q|urlencode }}&type={{ table.job_type|urlencode }}&page={{ table.page + 1 }}" hx-target="#jobs-table">{{ icon("next") }}</button>
+</nav>
+{%- endif -%}

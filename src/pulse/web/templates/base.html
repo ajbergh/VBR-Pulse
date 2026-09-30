@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}VBR Pulse{% endblock %}</title>
+  <meta name="htmx-config" content='{"allowEval": false, "includeIndicatorStyles": false, "defaultSettleDelay": 20, "historyCacheSize": 0}'>
+  <link rel="preload" href="/static/fonts/SourceSans3-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/css/pulse.css">
+  <script src="/static/js/prefs.js"></script>
+  <script src="/static/js/htmx.min.js" defer></script>
+  <script src="/static/js/sse.js" defer></script>
+  <script src="/static/js/pulse.js" defer></script>
+</head>
+<body class="{% block body_class %}{% endblock %}" {% block body_attrs %}{% endblock %}>
+  {% include "partials/icons.html" %}
+  {% if insecure_tls %}
+  <div class="banner-danger" role="alert">Certificate checks are off. Lab use only.</div>
+  {% endif %}
+  {% block body %}{% endblock %}
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <div id="announcer" class="sr-only" aria-live="polite"></div>
+</body>
+</html>

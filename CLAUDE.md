@@ -34,6 +34,17 @@ or bodies.
 - `GetAllJobs` is deliberately unmocked (501): the UI uses `GetAllJobsStates`.
 - Tests fast-forward time with a shared FakeClock (tests/conftest.py); never sleep in tests.
 
+## Web layer
+- One Connection per HttpOnly cookie (src/pulse/web/state.py) holds the VbrClient and
+  SessionTracker; the browser never sees credentials or tokens. The inspector bus is app-wide.
+- Pages render full HTML; actions return htmx partials. Out-of-band table rows must be wrapped
+  in `<template>` (htmx 2). Never concatenate `str + Markup` (it escapes the str).
+- Session tracks keep stable element ids so htmx's settle step animates the fill width.
+- CSP is `script-src 'self'` with htmx eval disabled: no inline scripts, no hx-on, no js: vals.
+  Playwright tests must poll with `page.evaluate`, not `wait_for_function`.
+- Text colours must pass WCAG AA: use `--text-ok/--text-bad/--text-warn` for coloured text;
+  pure brand colours only for fills, icons and borders. `uv run pytest -m e2e` runs axe-core.
+
 ## Spec quirks worth knowing
 - Agent Quick Backup (`StartAgentQuickBackupJob`) returns only `{jobId}`, not a session: find
   the session with `GetAllSessions?jobIdFilter=…`. Hyper-V/vSphere variants return a session.
@@ -53,5 +64,5 @@ or bodies.
 - Write or update tests first; run `uv run pytest` before reporting done.
 - Checks: `uv run ruff check src tests scripts`, `uv run ruff format --check src tests scripts`,
   `uv run mypy`.
-- For UI work, run Playwright screenshots and review them against PLAN §7.
+- For UI work, run `uv run pytest -m e2e` and review test-results/screenshots against PLAN §7.
 - Keep mock fixtures valid: `uv run pytest tests/contract`.

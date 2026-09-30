@@ -1,0 +1,18 @@
+{%- from "macros.html" import icon, method_pill -%}
+{%- set e = row.event -%}
+{%- set failed = e.status is none or e.status >= 400 -%}
+<li id="{{ row.dom_id }}" class="insp-row{% if failed %} insp-failed{% endif %}">
+  <details>
+    <summary>
+      {{ method_pill(e.method) }}
+      <span class="insp-path">{{ row.label }}</span>
+      {% if row.count > 1 %}<span class="insp-count" title="{{ row.count }} polling calls, grouped">×{{ row.count }}</span>{% endif %}
+      <span class="insp-meta">
+        {%- if row.count > 1 %}last {% endif -%}
+        <span class="insp-status {{ 'bad' if failed else 'ok' }}">{{ e.status if e.status is not none else "No response" }}{% if e.error_code %} {{ e.error_code }}{% endif %}</span>
+        <span aria-hidden="true">·</span> {{ e.duration_ms }} ms <span aria-hidden="true">·</span> <time datetime="{{ e.ts.isoformat() }}">{{ e.ts.astimezone().strftime("%H:%M:%S") }}</time>
+      </span>
+    </summary>
+    <div class="insp-body" hx-get="/ui/inspector/{{ e.id }}" hx-trigger="toggle from:closest details once" hx-swap="outerHTML"><p class="muted">Loading…</p></div>
+  </details>
+</li>

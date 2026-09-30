@@ -1,0 +1,46 @@
+{%- from "macros.html" import icon, result_chip -%}
+{%- set step = incident.step -%}
+<div id="stepper" class="stepper-wrap" {% if oob is defined and oob %}hx-swap-oob="true"{% endif %}>
+  <ol class="stepper">
+    <li class="step {{ 'done' if step > 1 else 'current' }}">
+      <p class="step-head"><span class="step-num" aria-hidden="true">1</span> Malware event</p>
+      {% if incident.event %}
+      {% set e = incident.event %}
+      <p class="step-detail">“{{ e.details }}”</p>
+      <p class="muted">{{ e.machine.displayName }} · {{ e.detectionTimeUtc|clock }} · {{ e.severity }} · {{ e.engine }}</p>
+      {% else %}
+      <p class="muted">Pick the event to respond to.</p>
+      {% endif %}
+    </li>
+    <li class="step {{ 'done' if step > 2 else ('current' if step == 2 else 'locked') }}">
+      <p class="step-head"><span class="step-num" aria-hidden="true">2</span> Quick backup</p>
+      {% if incident.backup_object %}
+      <p class="step-detail">{{ incident.backup_object.name }} <span class="muted">· {{ incident.backup_object.platformName }}</span></p>
+      {% endif %}
+      {% if incident.error %}<p class="callout callout-error" role="alert">{{ incident.error }}</p>{% endif %}
+      {% if quick %}
+      {% set snap = quick %}{% set focus = false %}{% include "partials/track.html" %}
+      {% endif %}
+      {% if step == 2 and (not quick or quick.ended) %}
+      <button type="button" class="btn-primary" hx-post="/ui/incident/quick-backup" hx-target="#stepper" hx-swap="outerHTML" hx-disabled-elt="this">{% if quick %}Try the quick backup again{% else %}Start quick backup{% endif %}</button>
+      {% elif step < 2 %}
+      <p class="muted">{{ icon("lock", "icon-sm") }} Unlocks when an event is selected.</p>
+      {% endif %}
+    </li>
+    <li class="step {{ 'done' if step > 3 else ('current' if step == 3 else 'locked') }}">
+      <p class="step-head"><span class="step-num" aria-hidden="true">3</span> Scan backup</p>
+      <p class="step-detail muted">Antivirus scan of the most recent restore point</p>
+      {% if scan %}
+      {% set snap = scan %}{% set focus = false %}{% include "partials/track.html" %}
+      {% endif %}
+      {% if step == 3 and (not scan or scan.ended) %}
+      <button type="button" class="btn-primary" hx-post="/ui/incident/scan" hx-target="#stepper" hx-swap="outerHTML" hx-disabled-elt="this">{% if scan %}Scan again{% else %}Scan latest restore point{% endif %}</button>
+      {% elif step < 3 %}
+      <p class="muted">{{ icon("lock", "icon-sm") }} Unlocks when the quick backup succeeds.</p>
+      {% endif %}
+    </li>
+  </ol>
+  {% if step == 4 %}
+  <div class="callout callout-ok" role="status">{{ icon("success") }}<p>Responded to the event: a fresh restore point exists and its scan came back {{ scan.result if scan else "clean" }}.</p></div>
+  {% endif %}
+</div>

@@ -1,0 +1,35 @@
+{%- from "macros.html" import icon -%}
+{%- set failed = e.status is none or e.status >= 400 -%}
+<div class="insp-body">
+      <h3 class="insp-h">Request</h3>
+      <p class="insp-line code">{{ e.method }} {{ e.url|display_url }}</p>
+      <dl class="insp-headers">
+        {%- for name, value in e.request_headers.items() %}
+        <div class="{{ 'keep' if name == 'x-api-version' else 'header-extra' }}"><dt>{{ name }}:</dt> <dd>{{ value }}{% if name == "Authorization" %} <span class="muted">(redacted)</span>{% endif %}</dd></div>
+        {%- endfor %}
+      </dl>
+      {% if e.request_body is not none %}
+      {%- set body_html, _cut = json_html(e.request_body) -%}
+      <pre class="json code" tabindex="0" aria-label="Request body">{{ body_html }}</pre>
+      {% endif %}
+
+      <h3 class="insp-h">Response {% if e.status is not none %}<span class="insp-status {{ 'bad' if failed else 'ok' }}">{{ e.status }}</span>{% endif %} <span class="muted">· {{ e.duration_ms }} ms</span></h3>
+      {% if e.error_message and e.status is none %}<p class="insp-line bad">{{ e.error_message }}</p>{% endif %}
+      {% if e.response_body is not none %}
+      {%- set resp_html, cut = json_html(e.response_body) -%}
+      <pre class="json code" id="resp-{{ e.id }}" tabindex="0" aria-label="Response body">{{ resp_html }}</pre>
+      {% if cut or e.response_truncated %}
+      <button type="button" class="btn-text" hx-get="/ui/inspector/{{ e.id }}/full" hx-target="#resp-{{ e.id }}" hx-swap="outerHTML">Show full response</button>
+      {% endif %}
+      {% elif e.status is not none %}
+      <p class="insp-line muted">No body.</p>
+      {% endif %}
+
+      <div class="insp-actions">
+        <button type="button" class="btn-text" data-copy="curl-{{ e.id }}">Copy as cURL</button>
+        {% if e.response_body is not none %}<button type="button" class="btn-text" data-copy="resp-{{ e.id }}">Copy response</button>{% endif %}
+        <a class="btn-text" href="{{ e.docs_url }}" target="_blank" rel="noopener noreferrer">Open in docs {{ icon("external", "icon-sm") }}<span class="sr-only"> (opens in a new tab)</span></a>
+        <span class="insp-op muted">operationId: <code>{{ e.operation_id }}</code></span>
+      </div>
+      <pre id="curl-{{ e.id }}" hidden>{{ curl(e) }}</pre>
+    </div>

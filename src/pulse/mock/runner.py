@@ -20,6 +20,7 @@ from pulse.mock.scenarios import SCENARIO_KEYS
 from pulse.mock.state import MockVbr
 from pulse.vbr.client import Credentials, VbrClient
 from pulse.vbr.errors import VbrError, VbrForbidden
+from pulse.vbr.incident import backup_scan_request, quick_backup_request
 
 DEMO_JOB = "SQL Daily"
 MAX_POLLS = 200
@@ -147,10 +148,12 @@ class _Run:
         machine = event["machine"]
         self.step(f"Malware event: {event['details']}")
 
-        vm = self.mock.incident_objects["hyperV"]
-        _check(vm["name"] == machine["displayName"], "incident machine mismatch")
-        quick = await self.client.request("StartHyperVQuickBackupJob", json=vm)
-        self.step(f"Quick backup of {vm['name']} started")
+        backup_object = await self.client.request(
+            "GetBackupObject", path_params={"id": machine["backupObjectId"]}
+        )
+        operation_id, body = quick_backup_request(backup_object)
+        quick = await self.client.request(operation_id, json=body)
+        self.step(f"Quick backup of {backup_object['name']} started ({operation_id})")
         quick = await self.track(quick)
         _check(quick["result"]["result"] == "Success", "quick backup failed")
 
@@ -169,14 +172,7 @@ class _Run:
 
         scan = await self.client.request(
             "StartMalwareBackupScan",
-            json={
-                "type": "Backup",
-                "scanMode": "MostRecent",
-                "scanEngine": {"useAntivirusEngine": True, "useYaraRule": False},
-                "backupObjectPair": [
-                    {"backupId": latest["backupId"], "backupObjectId": machine["backupObjectId"]}
-                ],
-            },
+            json=backup_scan_request(backup_object["backupId"], machine["backupObjectId"]),
         )
         self.step("Backup scan started")
         scan = await self.track(scan)

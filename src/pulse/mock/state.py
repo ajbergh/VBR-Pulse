@@ -37,6 +37,8 @@ _COMMON = {
     "GetAllSessions",
     "GetAllBackups",
     "GetAllObjectRestorePoints",
+    "GetBackupObject",
+    "GetAllBackupObjects",
 }
 _READ_INFRA = {
     "GetAllJobs",
@@ -228,9 +230,7 @@ class MockVbr:
             "data"
         ]
         self._seed_events: list[dict[str, Any]] = load("malware_events.json")["body"]["data"]
-        self.incident_objects: dict[str, Any] = {
-            k: v["body"] for k, v in _fixture("incident_objects.json").items()
-        }
+        self.backup_objects: list[dict[str, Any]] = _fixture("backup_objects.json")["body"]["data"]
         self._created_events: list[dict[str, Any]] = []
         self.sessions: dict[str, MockSession] = {}
         self._access: dict[str, _AccessToken] = {}
@@ -258,8 +258,8 @@ class MockVbr:
     def now(self) -> datetime:
         return self._wall0 + timedelta(seconds=self.elapsed())
 
-    def role_of(self, username: str) -> str:
-        return self.scenario.force_role or ACCOUNTS[username]
+    def role_of(self, username: str) -> str | None:
+        return self.scenario.force_role or ACCOUNTS.get(username)
 
     # ------------------------------------------------------------------ auth
 
@@ -303,7 +303,7 @@ class MockVbr:
         return record.username, token
 
     def authorize(self, username: str, operation_id: str) -> None:
-        if operation_id not in ROLE_OPERATIONS.get(self.role_of(username), set()):
+        if operation_id not in ROLE_OPERATIONS.get(self.role_of(username) or "", set()):
             raise MockError(403, "AccessDenied", "Access denied.")
 
     def logout(self, req: Request) -> dict[str, Any]:
@@ -618,12 +618,16 @@ class MockVbr:
         )
 
     def _backup_object_names(self) -> dict[str, str]:
-        names = {}
-        for event in self._seed_events + self._created_events:
-            machine = event.get("machine") or {}
-            if machine.get("backupObjectId") and machine["backupObjectId"] != ZERO_UUID:
-                names[machine["backupObjectId"]] = machine["displayName"]
-        return names
+        return {obj["id"]: obj["name"] for obj in self.backup_objects}
+
+    def get_backup_object(self, req: Request) -> dict[str, Any]:
+        for obj in self.backup_objects:
+            if obj["id"] == req.path["id"]:
+                return obj
+        raise MockError(404, "NotFound", "The backup object doesn't exist.", req.path["id"])
+
+    def get_all_backup_objects(self, req: Request) -> dict[str, Any]:
+        return _page(self.backup_objects, req.query, order={"Name": "name"})
 
     def _all_restore_points(self) -> list[dict[str, Any]]:
         points = list(self.restore_points)
@@ -776,6 +780,8 @@ class MockVbr:
             "GetAllRepositoriesStates": (200, self.get_all_repositories_states),
             "GetAllBackups": (200, self.get_all_backups),
             "GetAllObjectRestorePoints": (200, self.get_all_object_restore_points),
+            "GetBackupObject": (200, self.get_backup_object),
+            "GetAllBackupObjects": (200, self.get_all_backup_objects),
             "GetAllAuthorizationEvents": (200, self.get_all_authorization_events),
             "ViewSuspiciousActivityEvents": (200, self.view_suspicious_activity_events),
             "CreateSuspiciousActivityEvent": (201, self.create_suspicious_activity_event),

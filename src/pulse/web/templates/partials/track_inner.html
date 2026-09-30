@@ -1,0 +1,44 @@
+{%- from "macros.html" import icon, result_chip -%}
+{%- set failed = snap.ended and snap.result == "Failed" -%}
+<section class="track{% if snap.ended %} is-ended{% endif %}" id="track-{{ snap.id }}" tabindex="-1" aria-labelledby="track-title-{{ snap.id }}">
+  <div class="track-head">
+    <h2 class="track-title" id="track-title-{{ snap.id }}">{{ snap.name }} · {{ SESSION_TYPES.get(snap.session_type, snap.session_type) }} session <span class="mono">{{ snap.id|short_id }}</span></h2>
+    <p class="track-pct" aria-hidden="true">{{ snap.progress }} %</p>
+  </div>
+  <div class="track-bar" role="progressbar" aria-labelledby="track-title-{{ snap.id }}"
+       aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ snap.progress }}"
+       aria-valuetext="{{ snap.progress }} percent, {{ snap.state }}">
+    <div class="track-fill{% if failed %} is-failed{% endif %}" id="fill-{{ snap.id }}" style="width: {{ snap.progress }}%"></div>
+  </div>
+  <ol class="track-states">
+    {%- for label, cls in track_states(snap) %}
+    <li class="state-{{ cls }}"{% if cls == "current" %} aria-current="step"{% endif %}>{{ label }}</li>
+    {%- endfor %}
+  </ol>
+  <div class="track-meta">
+    <p>started {{ snap.creation_time|clock_seconds }} ·
+      {% if snap.ended %}finished {{ snap.end_time|clock_seconds }}{% else %}polling every {{ snap.poll_seconds|int }} s{% endif %}
+    </p>
+    <p class="track-result">Result: {% if snap.ended and snap.result != "None" %}{{ result_chip(snap.result) }}{% elif snap.ended %}<span class="muted">none</span>{% else %}<span class="muted">pending</span>{% endif %}</p>
+  </div>
+  {% if snap.error %}
+  <div class="callout callout-error" role="alert">
+    {{ icon("failed") }}
+    <p>{% if snap.retry_in %}Lost connection to {{ conn.host }}. Retrying in {{ snap.retry_in|int }} s.{% else %}{{ snap.error }}{% endif %}</p>
+    {% if snap.retry_in %}<button type="button" class="btn-secondary" hx-post="/ui/sessions/{{ snap.id }}/retry-now" hx-swap="none">Retry now</button>{% endif %}
+  </div>
+  {% endif %}
+  {% if failed %}
+  <p class="track-failure">{{ snap.name }} failed at {{ snap.progress }} %. {% if snap.logs %}The last log lines are below.{% else %}{{ snap.message }}{% endif %}</p>
+  {% if snap.logs %}
+  <ol class="log-lines" tabindex="0" aria-label="Last log lines">
+    {% for line in snap.logs %}
+    <li class="log-{{ line.status|lower }}"><span class="mono">{{ line.startTime|clock_seconds }}</span> {{ line.title }}</li>
+    {% endfor %}
+  </ol>
+  {% endif %}
+  {% elif snap.ended and snap.message %}
+  <p class="track-message">{{ snap.message }}</p>
+  {% endif %}
+  <p class="track-caption">{% if snap.ended %}The session is stopped: its result is {{ snap.result }}. Automation must read <code>result.result</code>, not just the state.{% else %}The start request returned instantly with this session. Pulse is polling <code>GET /sessions/{id}</code>.{% endif %}</p>
+</section>

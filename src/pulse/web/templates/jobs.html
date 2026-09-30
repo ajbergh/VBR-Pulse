@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block page_title %}Jobs{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Jobs</h1>
+  {% if table %}
+  <form class="filters" id="job-filters" hx-get="/ui/jobs/table" hx-target="#jobs-table"
+        hx-trigger="input changed delay:400ms from:#job-filter, change from:#job-type, submit">
+    <label for="job-filter" class="sr-only">Filter jobs by name</label>
+    <input id="job-filter" name="q" type="search" placeholder="Filter jobs…" value="{{ table.q }}" autocomplete="off" spellcheck="false">
+    <label for="job-type" class="sr-only">Job type</label>
+    <select id="job-type" name="type">
+      <option value="">All types</option>
+      {% for value, label in job_types.items() %}
+      <option value="{{ value }}" {% if table.job_type == value %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </form>
+  {% endif %}
+</div>
+
+<div class="jobs-layout">
+  <div id="jobs-table" class="jobs-table-wrap" hx-get="/ui/jobs/table" hx-trigger="pulse:refresh from:body" hx-include="#job-filters" aria-live="polite">
+    {% include "partials/jobs_table.html" %}
+  </div>
+  <aside id="job-panel" class="panel" aria-labelledby="job-panel-title"></aside>
+</div>
+
+<section id="session-dock" class="dock" aria-label="Live session">
+  {% if dock %}{% set snap = dock %}{% set focus = false %}{% include "partials/track.html" %}{% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,26 @@
+{%- from "macros.html" import icon -%}
+{%- if data -%}
+{%- for r in data.repositories %}
+{%- set used_pct = (100 * r.usedSpaceGB / r.capacityGB) if r.capacityGB else 0 -%}
+{%- set low = r.capacityGB and (r.freeGB / r.capacityGB) < 0.1 -%}
+<article class="card repo-card">
+  <h2 class="card-title">{{ r.name }}</h2>
+  <p class="card-meta">{{ REPOSITORY_TYPES.get(r.type, r.type) }}{% if r.hostName %} · {{ r.hostName }}{% endif %}</p>
+  <p class="card-path mono">{{ r.path }}</p>
+  <div class="capacity" role="img" aria-label="{{ r.usedSpaceGB|size_gb }} used of {{ r.capacityGB|size_gb }}, {{ r.freeGB|size_gb }} free">
+    <div class="capacity-used{% if low %} is-low{% endif %}" style="width: {{ used_pct|round(1) }}%"></div>
+  </div>
+  <dl class="capacity-nums">
+    <div><dt>Used</dt><dd>{{ r.usedSpaceGB|size_gb }}</dd></div>
+    <div><dt>Free</dt><dd>{{ r.freeGB|size_gb }}</dd></div>
+    <div><dt>Capacity</dt><dd>{{ r.capacityGB|size_gb }}</dd></div>
+  </dl>
+  <p class="card-status">
+    {%- if not r.isOnline -%}<span class="status status-bad">{{ icon("offline") }}Offline</span>
+    {%- elif r.isOutOfDate -%}<span class="status status-warn">{{ icon("warning") }}Out of date</span>
+    {%- elif low -%}<span class="status status-warn">{{ icon("warning") }}Low on space</span>
+    {%- else -%}<span class="status status-ok">{{ icon("success") }}Online</span>{%- endif -%}
+  </p>
+</article>
+{%- endfor %}
+{%- endif -%}

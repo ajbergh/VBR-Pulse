@@ -14,6 +14,7 @@ dependencies = [
     "keyring>=25",
     "truststore>=0.10",
     "jsonschema>=4.23",
+    "python-multipart>=0.0.32",
 ]
 
 [project.scripts]
@@ -28,6 +29,8 @@ dev = [
     "mypy>=1.11",
     "datamodel-code-generator[http]>=0.26",
     "types-jsonschema>=4.26.0.20260518",
+    "playwright>=1.63.0",
+    "axe-playwright-python>=0.1.8",
 ]
 
 [build-system]
@@ -37,14 +40,18 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/pulse"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"openapi/vbr-1.3-rev2.json" = "pulse/openapi/vbr-1.3-rev2.json"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
 markers = [
     "lab: runs against a real VBR lab server (opt-in with -m lab)",
+    "e2e: drives a real browser against mock mode (opt-in with -m e2e)",
 ]
-addopts = "-m 'not lab'"
+addopts = "-m 'not lab and not e2e'"
 
 [tool.ruff]
 line-length = 100
@@ -53,10 +60,16 @@ extend-exclude = ["src/pulse/vbr/models/generated.py", "src/pulse/vbr/operations
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "ASYNC", "S", "RUF"]
-ignore = ["S101"]  # assert is fine in tests
+ignore = [
+    "S101",    # assert is fine in tests
+    "RUF001",  # UI copy uses typographic characters on purpose (–, ×, …)
+    "RUF002",
+    "RUF003",
+]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S105", "S106"]  # fake passwords in fixtures
+"src/pulse/web/**" = ["S704"]  # every Markup() built here escapes its inputs first
 
 [tool.mypy]
 python_version = "3.12"

@@ -1,0 +1,29 @@
+{%- from "macros.html" import icon, job_status, result -%}
+{%- set live = snapshot is defined and snapshot and not snapshot.ended -%}
+{%- set is_stopping = stopping is defined and stopping -%}
+{%- set running = live or is_stopping or job.status in ("Running", "Starting", "Stopping") -%}
+{#- Out-of-band table rows must be wrapped in <template> for htmx 2 to parse them. -#}
+{%- if oob is defined and oob %}<template>{% endif -%}
+<tr id="job-{{ job.id }}" class="job-row{% if running %} is-running{% endif %}" {% if oob is defined and oob %}hx-swap-oob="true"{% endif %}>
+  <td class="col-status">{{ job_status(job, snapshot if snapshot is defined else None, is_stopping) }}</td>
+  <td class="col-name"><button type="button" class="link-btn job-open" hx-get="/ui/jobs/{{ job.id }}" hx-target="#job-panel" hx-swap="innerHTML" aria-controls="job-panel">{{ job.name }}</button></td>
+  <td>{{ JOB_TYPES.get(job.type, job.type) }}</td>
+  <td>{{ result(job.lastResult) if not running else "–" }}</td>
+  <td class="num">{{ job.lastRun|clock }}</td>
+  <td class="num">{{ job.nextRun|clock if job.nextRun else "–" }}</td>
+  <td class="col-actions">
+    {%- if is_stopping or (snapshot is defined and snapshot and snapshot.state == "Stopping" and not snapshot.ended) -%}
+      <button type="button" class="btn-text" disabled>Stopping…</button>
+    {%- elif running -%}
+      <button type="button" class="btn-text" hx-post="/ui/jobs/{{ job.id }}/stop" hx-target="#job-{{ job.id }}" hx-swap="outerHTML" hx-disabled-elt="this">Stop</button>
+    {%- elif job.status == "Disabled" -%}
+      <span class="muted">Disabled</span>
+    {%- else -%}
+      {%- if job.lastResult in ("Failed", "Warning") -%}
+      <button type="button" class="btn-text" hx-post="/ui/jobs/{{ job.id }}/retry" hx-target="#session-dock" hx-swap="innerHTML" hx-disabled-elt="this">Retry</button>
+      {%- endif -%}
+      <button type="button" class="btn-primary btn-sm" hx-post="/ui/jobs/{{ job.id }}/start" hx-target="#session-dock" hx-swap="innerHTML" hx-disabled-elt="this">Start<span class="sr-only"> {{ job.name }}</span></button>
+    {%- endif -%}
+  </td>
+</tr>
+{%- if oob is defined and oob %}</template>{% endif %}
