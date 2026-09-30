@@ -10,7 +10,7 @@ from fastapi.responses import HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 from markupsafe import Markup
 
-from pulse.config import Settings
+from pulse.config import Settings, load_settings
 from pulse.mock.state import MockVbr
 from pulse.vbr.errors import VbrError, VbrNotFound, VbrServerError
 from pulse.web import events, routes
@@ -37,7 +37,7 @@ CSP = (
 
 
 def create_app(settings: Settings | None = None, *, mock: MockVbr | None = None) -> FastAPI:
-    settings = settings or Settings()
+    settings = settings or load_settings()
     state = AppState(settings, mock=mock)
 
     @asynccontextmanager

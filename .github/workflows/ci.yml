@@ -19,8 +19,8 @@ jobs:
         run: uv sync --frozen
       - name: Lint
         run: |
-          uv run ruff check src tests scripts
-          uv run ruff format --check src tests scripts
+          uv run ruff check src tests scripts packaging
+          uv run ruff format --check src tests scripts packaging
       - name: Type-check
         run: uv run mypy
       - name: Unit, contract and integration tests

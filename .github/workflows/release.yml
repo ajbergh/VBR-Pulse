@@ -1,0 +1,69 @@
+name: Release
+
+# Push a tag that matches src/pulse/__init__.py (e.g. v0.2.0) to publish a GitHub Release with
+# standalone builds for presenter laptops. Run it by hand (Actions → Release → Run workflow)
+# to get the zips as workflow artifacts without publishing anything.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            platform: windows-x64
+          - os: macos-14 # Apple Silicon runner: builds a native arm64 app
+            platform: macos-arm64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        id: python
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install (with PyInstaller)
+        run: uv sync --frozen --group release --python "${{ steps.python.outputs.python-path }}"
+      - name: Build, smoke-test and zip
+        run: uv run python scripts/build_release.py
+        env:
+          PYTHONIOENCODING: utf-8
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vbr-pulse-${{ matrix.platform }}
+          path: |
+            dist/*.zip
+            dist/*.sha256
+          if-no-files-found: error
+
+  publish:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: release
+          merge-multiple: true
+      - name: Create the GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd release
+          cat *.sha256 > SHA256SUMS.txt
+          gh release create "${GITHUB_REF_NAME}" *.zip SHA256SUMS.txt \
+            --repo "${GITHUB_REPOSITORY}" \
+            --title "VBR Pulse ${GITHUB_REF_NAME#v}" \
+            --generate-notes \
+            --notes "Standalone builds for Windows x64 and macOS (Apple Silicon). These builds aren't code-signed: see README-FIRST.txt in each zip for the one-time Windows SmartScreen and macOS quarantine steps."

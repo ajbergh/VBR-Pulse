@@ -85,12 +85,13 @@ def _signin(
     mode: str | None = None,
     status_code: int = 200,
 ) -> Response:
-    mode = mode or ("mock" if state.settings.mock else "live")
     try:
         live_profiles = state.profiles("live")
         profile_error = None
     except ProfileError as exc:
         live_profiles, profile_error = [], str(exc)
+    # Nothing configured yet (e.g. a fresh release download): offer mock data first.
+    mode = mode or ("mock" if state.settings.mock or not live_profiles else "live")
     return render(
         request,
         "signin.html",

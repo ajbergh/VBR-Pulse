@@ -29,7 +29,37 @@ All screenshots use mock mode, so they contain no real server data.
 Accounts are profiles from the configuration. Pulse never asks for a password.
 </details>
 
-## Quick start (no server needed)
+## Download for a presenter laptop (no Python needed)
+
+Standalone builds for **Windows x64** and **macOS on Apple Silicon** are attached to each
+[GitHub Release](../../releases) as `vbr-pulse-<version>-windows-x64.zip` and
+`vbr-pulse-<version>-macos-arm64.zip`, with a `SHA256SUMS.txt`. Unzip the folder anywhere and:
+
+- **Windows:** double-click `pulse.exe`. The builds aren't code-signed yet, so the first time
+  SmartScreen says it "protected your PC": choose **More info → Run anyway**.
+- **macOS:** the build isn't signed or notarized, so clear the download quarantine once, then
+  double-click `pulse` (it opens in Terminal):
+
+  ```bash
+  xattr -dr com.apple.quarantine ~/Downloads/vbr-pulse-0.2.0-macos-arm64
+  ```
+
+Pulse opens in your browser on <http://127.0.0.1:8000>, and mock data works immediately. The
+console window must stay open; close it to stop Pulse. To connect to a lab server, run these in a
+terminal in that folder (`pulse.exe` on Windows, `./pulse` on macOS):
+
+```bash
+pulse init                      # creates your settings file and prints where it is
+pulse secret set svc-pulse-ops  # stores a password in the OS keychain; repeat per account
+pulse preflight                 # checks the server, every account and the demo job
+```
+
+Settings live in a per-user folder (`%APPDATA%\vbr-pulse\pulse.env` on Windows,
+`~/Library/Application Support/vbr-pulse/pulse.env` on macOS). A `pulse.env` next to the
+executable wins, for USB-stick use. `pulse config` shows which file is used and which accounts
+have a stored password.
+
+## Quick start from source
 
 Requires Python 3.12 and [uv](https://docs.astral.sh/uv/).
 
@@ -53,7 +83,7 @@ keyboard shortcuts, `P` for presenter mode, `S` to pick a mock scenario.
 | 5 | Jobs, live session track, sessions screen | Done |
 | 6 | Repository cards with server-side sorting | Done |
 | 7 | 13.1 incident flow, lab seeding, RBAC demo | Done |
-| 8 | Security checks, `uv run pulse`, Dockerfile, CI | Done |
+| 8 | Security checks, `uv run pulse`, Dockerfile, CI, standalone releases | Done |
 | 9 | Demo rehearsal on the presenter laptop | For the presenter — see below |
 
 ## Connecting to a lab server
@@ -73,11 +103,11 @@ Prerequisites on the lab side (PLAN §5.4, Appendix D):
 - One idle job whose **description contains `[pulse-demo]`** and finishes in under 60 s. Lab
   tests and the pre-flight check only ever start that job.
 
-On the laptop:
+On the laptop (from source; with a release build, drop `uv run` and use `pulse init`):
 
 ```bash
 cp .env.example .env                        # set PULSE_VBR_URL and the profile users
-uv run keyring set vbr-pulse svc-pulse-ops  # repeat for each account; never put secrets in .env
+uv run pulse secret set svc-pulse-ops       # repeat for each account; never put secrets in .env
 uv run pulse preflight                      # checks 443, every sign-in, the demo job, malware events
 uv run pulse                                # serve the UI on http://127.0.0.1:8000
 ```
@@ -174,6 +204,16 @@ tests/                unit, contract, integration, web, e2e (Playwright), lab
 `scripts/extract_reference_spec.py`. The plan prefers the `swagger.json` exported from your own
 13.1 server (it ships in the Veeam Backup & Replication installation folder and is served by its
 Swagger UI). Swap it in and regenerate when a lab server is available.
+
+### Standalone builds
+
+```bash
+uv sync --group release
+uv run python scripts/build_release.py   # build, smoke-test, zip into dist/
+```
+
+PyInstaller can't cross-compile, so this builds for the machine it runs on. Publishing a release
+for both platforms is done by CI: see [docs/RELEASING.md](docs/RELEASING.md).
 
 ### Docker (optional)
 

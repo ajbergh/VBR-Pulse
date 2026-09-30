@@ -36,7 +36,7 @@ def test_vault_reference(keyring_store: dict[tuple[str, str], str]) -> None:
 
 def test_missing_secret_message_has_no_value(keyring_store: dict[tuple[str, str], str]) -> None:
     profile = Profile("view", "svc-pulse-view", "vault://vbr/svc-pulse-view")
-    with pytest.raises(ProfileError, match="keyring set vbr-pulse svc-pulse-view"):
+    with pytest.raises(ProfileError, match="pulse secret set svc-pulse-view"):
         resolve_secret(profile)
 
 
@@ -79,3 +79,60 @@ def test_missing_profile_user(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_ca_bundle_comment_is_not_a_path(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("PULSE_CA_BUNDLE", "# or leave empty to use system trust")
     assert Settings(_env_file=None).ca_bundle is None  # type: ignore[call-arg]
+
+
+def test_template_matches_env_example() -> None:
+    root = Path(__file__).resolve().parents[2]
+    assert (root / ".env.example").read_text(encoding="utf-8") == config.CONFIG_TEMPLATE
+
+
+def test_config_discovery_order(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    user_file = tmp_path / "user" / "pulse.env"
+    monkeypatch.setattr(config, "user_config_file", lambda: user_file)
+    monkeypatch.delenv("PULSE_CONFIG", raising=False)
+    monkeypatch.chdir(tmp_path)
+    assert config.find_config() is None  # nothing anywhere: defaults, mock only
+
+    user_file.parent.mkdir()
+    user_file.write_text("PULSE_VBR_URL=https://user.example\n", encoding="utf-8")
+    assert config.find_config() == user_file
+
+    (tmp_path / ".env").write_text("PULSE_VBR_URL=https://local.example\n", encoding="utf-8")
+    assert config.find_config() == Path(".env")  # a source checkout prefers ./.env
+
+    explicit = tmp_path / "other.env"
+    monkeypatch.setenv("PULSE_CONFIG", str(explicit))
+    assert config.find_config() == explicit
+
+
+def test_release_build_reads_pulse_env_next_to_the_executable(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(config.sys, "frozen", True, raising=False)
+    monkeypatch.setattr(config.sys, "executable", str(tmp_path / "pulse.exe"))
+    monkeypatch.setattr(config, "user_config_file", lambda: tmp_path / "missing.env")
+    monkeypatch.delenv("PULSE_CONFIG", raising=False)
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / ".env").write_text("MOCK=1\n", encoding="utf-8")
+    assert config.find_config() is None  # a release never picks up a stray ./.env
+    (tmp_path / "pulse.env").write_text("MOCK=1\n", encoding="utf-8")
+    assert config.find_config() == tmp_path / "pulse.env"
+
+
+def test_load_settings_reads_profiles_from_the_chosen_file(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    for key in ("PULSE_VBR_URL", "PULSE_PROFILE_OPS_USER"):
+        monkeypatch.delenv(key, raising=False)
+    path = tmp_path / "lab.env"
+    path.write_text(
+        "PULSE_VBR_URL=https://vbr.example\nPULSE_PROFILE_OPS_USER=alice\n", encoding="utf-8"
+    )
+    settings = config.load_settings(path)
+    assert settings.vbr_url == "https://vbr.example"
+    assert settings.profile("ops").username == "alice"
+
+
+def test_missing_explicit_config_is_an_error(tmp_path: Path) -> None:
+    with pytest.raises(ProfileError, match="pulse init"):
+        config.load_settings(tmp_path / "nope.env")

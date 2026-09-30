@@ -47,6 +47,17 @@ Quick Backup). Quick Backup supports vSphere and agent-managed machines.
 - Text colours must pass WCAG AA: use `--text-ok/--text-bad/--text-warn` for coloured text;
   pure brand colours only for fills, icons and borders. `uv run pytest -m e2e` runs axe-core.
 
+## Release builds (PyInstaller)
+- `uv sync --group release && uv run python scripts/build_release.py` builds, smoke-tests and
+  zips the standalone app for the current OS; CI (.github/workflows/release.yml) builds Windows
+  x64 + macOS arm64 on a `v*` tag. See docs/RELEASING.md. The version lives only in
+  src/pulse/__init__.py.
+- Resource paths must stay relative to the package (`Path(__file__)`); never read files from
+  the repo root at runtime. Settings come from `load_settings()` (see config.py docstring),
+  never `Settings()` in app code.
+- Never import pulse.vbr.models.generated at runtime: the release spec excludes it.
+- CLI output goes through `_utf8_output()`: Windows redirected output is cp1252 otherwise.
+
 ## Spec quirks worth knowing
 - Agent Quick Backup (`StartAgentQuickBackupJob`) returns only `{jobId}`, not a session: find
   the session with `GetAllSessions?jobIdFilter=…`. The vSphere variant returns a session.

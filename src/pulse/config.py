@@ -1,4 +1,10 @@
-"""Settings (PLAN §8) and account-profile secret resolution.
+"""Settings (PLAN §8), where they live, and account-profile secret resolution.
+
+Settings file, first match wins:
+  1. `--config PATH` or the PULSE_CONFIG environment variable
+  2. a release build: `pulse.env` next to the executable (portable use)
+     a source checkout: `.env` in the working directory
+  3. `pulse.env` in the per-user settings folder (`pulse init` creates it)
 
 Secrets resolution order: OS keyring → environment variable → vault reference.
 """
@@ -6,21 +12,81 @@ Secrets resolution order: OS keyring → environment variable → vault referenc
 from __future__ import annotations
 
 import os
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
 
 import keyring
+import platformdirs
 from dotenv import dotenv_values
+from keyring.errors import PasswordDeleteError
 from pydantic import Field, PrivateAttr, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from pulse.vbr.client import Credentials
 from pulse.vbr.operations import SPEC_VERSION
 
+APP_NAME = "vbr-pulse"
 KEYRING_SERVICE = "vbr-pulse"
 VAULT_SCHEME = "vault://"
 ENV_FILE = Path(".env")
+CONFIG_NAME = "pulse.env"
+
+# Written by `pulse init`; .env.example in the repo is kept identical (see test_config.py).
+CONFIG_TEMPLATE = """\
+PULSE_VBR_URL=https://vbr01.lab.local        # 443 default in 13.1
+PULSE_API_VERSION=1.3-rev2                   # pinned; change deliberately
+# PULSE_CA_BUNDLE: a PEM file, or leave empty to use the OS trust store
+PULSE_CA_BUNDLE=./certs/vbr-ca.pem
+PULSE_LAB_INSECURE_TLS=false                 # true ONLY in isolated labs; shows a red banner
+PULSE_PROFILES=ops,ir,view                   # account profiles shown on sign-in
+PULSE_PROFILE_OPS_USER=svc-pulse-ops
+PULSE_PROFILE_OPS_SECRET=vault://vbr/svc-pulse-ops   # resolved via keyring / env / vault
+PULSE_PROFILE_OPS_ROLE=Backup Operator               # shown in 403 messages
+PULSE_PROFILE_IR_USER=svc-pulse-ir
+PULSE_PROFILE_IR_SECRET=vault://vbr/svc-pulse-ir
+PULSE_PROFILE_IR_ROLE=Incident API Operator
+PULSE_PROFILE_VIEW_USER=svc-pulse-view
+PULSE_PROFILE_VIEW_SECRET=vault://vbr/svc-pulse-view
+PULSE_PROFILE_VIEW_ROLE=Backup Viewer
+PULSE_POLL_SECONDS=5
+MOCK=0
+MOCK_SCENARIO=happy
+PULSE_HOST=127.0.0.1                         # anything else needs `pulse serve --allow-remote`
+PULSE_PORT=8000
+"""
+
+
+def is_frozen() -> bool:
+    """True when running from a packaged release (PyInstaller)."""
+    return bool(getattr(sys, "frozen", False))
+
+
+def user_config_file() -> Path:
+    return platformdirs.user_config_path(APP_NAME, appauthor=False, roaming=True) / CONFIG_NAME
+
+
+def find_config(explicit: Path | None = None) -> Path | None:
+    """The settings file to use, or None to run on defaults (mock data only)."""
+    if explicit is None and os.environ.get("PULSE_CONFIG"):
+        explicit = Path(os.environ["PULSE_CONFIG"])
+    if explicit is not None:
+        return explicit.expanduser()
+    local = Path(sys.executable).parent / CONFIG_NAME if is_frozen() else ENV_FILE
+    for candidate in (local, user_config_file()):
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def load_settings(explicit: Path | None = None) -> Settings:
+    path = find_config(explicit)
+    if path is not None and not path.is_file():
+        raise ProfileError(f"The settings file {path} doesn't exist. Run `pulse init` first.")
+    settings = Settings(_env_file=path)  # type: ignore[call-arg]
+    settings._env_path = path
+    return settings
 
 
 class Settings(BaseSettings):
@@ -136,5 +202,25 @@ def resolve_secret(profile: Profile) -> SecretStr:
             return SecretStr(secret)
     raise ProfileError(
         f"No secret found for profile '{profile.name}' ({profile.username}). "
-        f"Store it with: keyring set {KEYRING_SERVICE} {profile.username}"
+        f"Store it with: pulse secret set {profile.username}"
     )
+
+
+def store_secret(username: str, secret: str) -> None:
+    keyring.set_password(KEYRING_SERVICE, username, secret)
+
+
+def delete_secret(username: str) -> bool:
+    try:
+        keyring.delete_password(KEYRING_SERVICE, username)
+    except PasswordDeleteError:
+        return False
+    return True
+
+
+def has_secret(profile: Profile) -> bool:
+    try:
+        resolve_secret(profile)
+    except ProfileError:
+        return False
+    return True
