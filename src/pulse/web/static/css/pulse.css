@@ -499,8 +499,10 @@ html.inspector-collapsed .inspector-title,
 html.inspector-collapsed [data-action="inspector-wide"] { display: none; }
 html.inspector-collapsed .inspector-head { padding: 12px 8px; justify-content: center; border: 0; }
 
-.insp-row { border-bottom: 1px solid var(--line); transition: opacity 150ms ease-out; }
-.insp-row.htmx-added { opacity: 0; }
+/* Insert fade (PLAN §7.11): the row's background eases from white to the inspector tint. Text
+   stays fully opaque, so contrast never dips mid-fade (an opacity fade did, and axe caught it). */
+.insp-row { border-bottom: 1px solid var(--line); transition: background-color 150ms ease-out; }
+.insp-row.htmx-added { background-color: var(--v-white); }
 .insp-row summary {
   list-style: none; cursor: pointer; padding: 10px var(--s2);
   display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 2px 10px; align-items: center;

@@ -201,7 +201,11 @@ def _show_config(settings: Settings) -> int:
     print(f"VBR Pulse {__version__}")
     print(f"Settings file:  {path or 'none (mock data only)'}")
     print(f"Per-user file:  {user_config_file()}")
-    print(f"Keyring:        {type(keyring.get_keyring()).__name__}")
+    backend = type(keyring.get_keyring())
+    # e.g. "Windows.WinVaultKeyring" or "macOS.Keyring"
+    print(
+        f"Keyring:        {backend.__module__.removeprefix('keyring.backends.')}.{backend.__name__}"
+    )
     if path is None:
         return 0
     print(f"Server:         {settings.vbr_url}")
