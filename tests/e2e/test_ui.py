@@ -218,3 +218,26 @@ def test_keyboard_walkthrough(browser: Browser, base_url: str) -> None:
 
     page.keyboard.press("2")
     page.wait_for_url("**/repositories")
+
+
+def test_expanded_polling_row_survives_new_polls(browser: Browser, base_url: str) -> None:
+    """A grouped row is replaced on every poll; it must stay open and keep focus."""
+    page = sign_in(browser, base_url)
+    start_job(page, "Identity services")
+    session_id = page.locator("#session-dock .track").get_attribute("id").removeprefix("track-")  # type: ignore[union-attr]
+    row_selector = f"#insp-grp-session-{session_id}"
+    row = page.locator(row_selector)
+    row.wait_for()
+    row.locator("summary").focus()
+    page.keyboard.press("Enter")
+    expect(row.locator(".insp-actions")).to_be_visible()
+    count_before = int(row.locator(".insp-count").inner_text().lstrip("×"))
+
+    page.wait_for_timeout(3500)  # the harness polls every second
+
+    assert row.locator("details").get_attribute("open") is not None, "the row snapped shut"
+    assert int(row.locator(".insp-count").inner_text().lstrip("×")) > count_before
+    expect(row.locator(".insp-actions")).to_be_visible()
+    assert page.evaluate(f"!!document.activeElement.closest('{row_selector}')"), (
+        "keyboard focus left the row"
+    )

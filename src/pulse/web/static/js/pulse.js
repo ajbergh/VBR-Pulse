@@ -175,6 +175,37 @@
   document.addEventListener("htmx:sseMessage", function (e) {
     if (e.target && e.target.id === "token-ring") ringSwapped();
   });
+
+  // Each poll replaces a grouped inspector row ("GET /sessions/… ×14") with a fresh copy at
+  // the top. Keep it expanded, and keep keyboard focus on it, so it doesn't snap shut mid-read.
+  var openRows = null;
+  document.addEventListener("htmx:sseBeforeMessage", function (e) {
+    if (!e.target || e.target.id !== "inspector-rows") return;
+    openRows = [];
+    e.target.querySelectorAll("li[id^='insp-grp-'] > details[open]").forEach(function (d) {
+      var row = d.parentElement;
+      openRows.push({ id: row.id, focused: row.contains(document.activeElement) });
+    });
+  });
+  document.addEventListener("htmx:sseMessage", function (e) {
+    if (!e.target || e.target.id !== "inspector-rows" || !openRows) return;
+    openRows.forEach(function (was) {
+      var row = document.getElementById(was.id);
+      var details = row && row.querySelector("details");
+      if (!details) return;
+      details.open = true;
+      if (was.focused) details.querySelector("summary").focus({ preventScroll: true });
+      // htmx wires the row's lazy-load trigger only after settling, so the "toggle" above can
+      // go unheard: load the latest call's detail ourselves once the swap has settled.
+      setTimeout(function () {
+        var body = details.querySelector(".insp-body[hx-get]");
+        if (body && document.body.contains(body) && window.htmx) {
+          window.htmx.ajax("GET", body.getAttribute("hx-get"), { target: body, swap: "outerHTML" });
+        }
+      }, 60);
+    });
+    openRows = null;
+  });
   document.addEventListener("htmx:afterSwap", function (e) {
     var target = e.detail.target;
     if (target && target.id === "token-ring") ringSwapped();
