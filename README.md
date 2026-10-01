@@ -6,7 +6,27 @@ response behind it, with a link to the operation in the official reference.
 
 Plan and specification: [docs/VBR_Pulse_Implementation_Plan.md](docs/VBR_Pulse_Implementation_Plan.md).
 
-![Jobs screen with a live backup session filling in green, and the API inspector on the right showing the start request and grouped polling calls](docs/images/jobs-live-session.png)
+![Animation: filtering jobs for SQL, starting SQL Daily, and the session track filling to Success while the API inspector shows the start request and grouped polling calls](docs/images/demo-start-job.gif)
+
+## See it in action
+
+Recorded in mock mode at 1366×768, the plan's projector size. Waits for sessions are sped
+up; clicks and typing play in real time.
+
+| | |
+|---|---|
+| ![Animation: incident response, from malware event on FS-02 through a vSphere quick backup to a clean backup scan](docs/images/demo-incident.gif) | ![Animation: picking the Failure scenario, starting a job, and the track stopping at 63 % in red with the log lines fetched automatically](docs/images/demo-failure.gif) |
+| **Incident response (13.1).** Malware event → vSphere Quick Backup → backup scan. | **Failure.** The session stops at 63 %, and Pulse fetches the log lines on its own. |
+| ![Animation: the Backup Viewer is refused with a 403 callout; switching to the operator account and starting the job works](docs/images/demo-rbac.gif) | ![Animation: expanding the StartJob call in a widened inspector, then copying it as cURL](docs/images/demo-inspector.gif) |
+| **Role-based access.** A Backup Viewer gets 403; one click switches to the operator. | **API inspector.** Redacted token, body and response, and copy as cURL. |
+
+<details>
+<summary>Presenter mode</summary>
+
+![Animation: pressing P switches to presenter mode with larger type and an icon-only rail, then I hides and shows the inspector](docs/images/demo-presenter.gif)
+
+`P` switches to presenter mode for the back row; `I` hides and shows the inspector.
+</details>
 
 ## Screenshots
 
@@ -182,10 +202,12 @@ uv run python scripts/gen_models.py
 uv run python scripts/make_mock_fixtures.py
 ```
 
-Refresh the README screenshots after UI changes (mock mode only, about three minutes):
+Refresh the README screenshots and animations after UI changes (mock mode only; about three
+and six minutes, because sessions run in real time):
 
 ```bash
 uv run python scripts/readme_screenshots.py
+uv run python scripts/readme_gifs.py            # or one clip: readme_gifs.py incident
 ```
 
 ### Layout

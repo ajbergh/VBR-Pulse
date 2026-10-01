@@ -97,7 +97,8 @@ def clock_time(value: str | None, now: datetime | None = None) -> str:
     today = (now or datetime.now(UTC)).astimezone().date()
     if local.date() == today:
         return local.strftime("%H:%M")
-    return f"{local.strftime('%b')} {local.day} {local.strftime('%H:%M')}"
+    # No-break space inside the date, so a narrow column wraps only before the time.
+    return f"{local.strftime('%b')} {local.day} {local.strftime('%H:%M')}"
 
 
 def clock_seconds(value: str | None) -> str:

@@ -201,3 +201,9 @@ def test_short_durations() -> None:
         views.duration("2026-09-30T17:08:38.754362-04:00", "2026-09-30T17:10:24.1-04:00")
         == "1 min 45 s"
     )
+
+
+def test_dates_only_break_before_the_time() -> None:
+    text = views.clock_time("2026-01-15T08:30:00Z")
+    assert " " in text  # "Jan 15" never splits across lines
+    assert text.count(" ") == 1

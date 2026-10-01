@@ -241,3 +241,19 @@ def test_expanded_polling_row_survives_new_polls(browser: Browser, base_url: str
     assert page.evaluate(f"!!document.activeElement.closest('{row_selector}')"), (
         "keyboard focus left the row"
     )
+
+
+@pytest.mark.parametrize("presenter", [False, True], ids=["normal", "presenter"])
+@pytest.mark.parametrize("size", list(SIZES))
+def test_full_job_table_fits_beside_the_inspector(
+    browser: Browser, base_url: str, size: str, presenter: bool
+) -> None:
+    """Long dates ("Oct 1 04:09") must wrap rather than push Start off the edge."""
+    page = sign_in(browser, base_url, size)
+    if presenter:
+        page.keyboard.press("p")
+    overflow = page.evaluate(
+        "document.querySelector('.jobs-table').getBoundingClientRect().width"
+        " - document.querySelector('#jobs-table').clientWidth"
+    )
+    assert overflow <= 1, f"the job table is {overflow:.0f} px wider than its area"
