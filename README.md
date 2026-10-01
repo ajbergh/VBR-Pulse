@@ -10,8 +10,6 @@ Plan and specification: [docs/VBR_Pulse_Implementation_Plan.md](docs/VBR_Pulse_I
 
 ## See it in action
 
-Recorded in mock mode at 1366×768, the plan's projector size. Waits for sessions are sped
-up; clicks and typing play in real time.
 
 | | |
 |---|---|
